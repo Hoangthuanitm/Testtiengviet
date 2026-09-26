@@ -344,6 +344,223 @@ footer.app-footer {
   margin-top: 40px;
 }
 
+/* ============================================================
+   FLASHCARD TU VUNG VLS -- CSS lay tu kimoanh.tiengnhat
+   ============================================================ */
+.fc-panel { padding: 22px 18px 26px; }
+
+.fc-wrap { container-type: inline-size; width: 100%; }
+.fc-stage { perspective: 1800px; }
+
+.fc-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1196 / 380;
+  border-radius: 2.6cqw;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.4, .15, .2, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.fc-card.is-flipped { transform: rotateY(180deg); }
+.fc-card.fc-noanim { transition: none; }
+.fc-card:focus-visible { outline: 3px solid var(--orange, #dd6f0c); outline-offset: 5px; }
+
+.fc-face {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 2.6cqw;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  color: #012157;
+}
+
+/* ---------- MẶT TRƯỚC · khung hồng ---------- */
+.fc-face--pink {
+  background: #FEF7F3;
+  border: .6cqw solid #F6BAC1;
+  box-shadow: 0 .5cqw 1.8cqw rgba(226, 130, 145, .14), inset 0 0 0 .18cqw rgba(255, 255, 255, .55);
+}
+/* ---------- MẶT SAU · khung xanh dương ---------- */
+.fc-face--blue {
+  background: #FDFBF6;
+  border: .6cqw solid #92BBEC;
+  box-shadow: 0 .5cqw 1.8cqw rgba(90, 140, 210, .14), inset 0 0 0 .18cqw rgba(255, 255, 255, .55);
+  transform: rotateY(180deg);
+}
+
+.fc-d { position: absolute; display: block; overflow: visible; pointer-events: none; }
+
+/* ----- mặt hồng: tiêu đề "色 SẮC" + vệt cọ + tia ----- */
+.fc-title {
+  position: absolute;
+  left: 50%;
+  top: 24.7%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: .3em;
+  padding: .17em .46em;
+  font-size: 7.7cqw;
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.fc-title .fc-k { font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif; font-weight: 900; }
+.fc-title .fc-hv {
+  font-family: "Inter", "Noto Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: .01em;
+}
+.fc-title .fc-k, .fc-title .fc-hv { position: relative; z-index: 1; }
+.fc-brush { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.fc-rays { position: absolute; top: 50%; width: .47em; height: .92em; transform: translateY(-50%); overflow: visible; }
+.fc-rays--l { right: calc(100% + .26em); }
+.fc-rays--r { left: calc(100% + .26em); }
+
+/* ----- mặt hồng: khung âm đọc nét đứt ----- */
+.fc-read {
+  position: absolute;
+  left: 50%;
+  top: 47.3%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 70%;
+  max-width: 80%;
+  min-height: 29%;
+  padding: 1.1cqw 3.4cqw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: .8em;
+  row-gap: .02em;
+  font-size: calc(var(--r, 4.9) * 1cqw);
+  line-height: 1.3;
+  border-radius: 3.6cqw;
+  background: rgba(255, 255, 255, .42);
+  white-space: nowrap;
+}
+.fc-read--stack { flex-direction: column; flex-wrap: nowrap; row-gap: .12em; max-width: 78%; padding-top: 1.6cqw; padding-bottom: 1.6cqw; }
+.fc-dash { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.fc-dash rect {
+  fill: none;
+  stroke: #FDB4BB;
+  stroke-width: .34cqw;
+  stroke-dasharray: 1.55cqw 1.5cqw;
+  stroke-linecap: round;
+  rx: 3.6cqw;
+}
+.fc-r { position: relative; display: inline-flex; align-items: baseline; gap: .38em; }
+.fc-lab { font-family: "Inter", "Noto Sans", "Segoe UI", Arial, sans-serif; font-weight: 600; }
+.fc-kana { font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif; font-weight: 500; }
+
+/* ----- mặt xanh: các từ ghép ngăn cách bằng dấu / nghiêng ----- */
+.fc-words {
+  position: absolute;
+  left: 10.5%;
+  right: 10.5%;
+  top: 10%;
+  bottom: 28%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-weight: 900;
+  font-size: calc(var(--k, 7) * 1cqw);
+  line-height: 1.22;
+  text-align: center;
+}
+.fc-words--multi { left: 14%; right: 14%; }
+.fc-words-in { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; row-gap: .12em; }
+.fc-w { display: inline-flex; align-items: center; white-space: nowrap; }
+.fc-w:not(:last-child)::after {
+  content: "";
+  display: inline-block;
+  width: .062em;
+  height: .84em;
+  margin: 0 .4em 0 .44em;
+  background: #4573A8;
+  border-radius: .05em;
+  transform: rotate(21deg);
+}
+
+/* ----- điều khiển bên dưới thẻ (dùng ngôn ngữ thiết kế sẵn có của trang) ----- */
+.fc-hint { text-align: center; font-size: .82rem; color: var(--terracotta, #bd6f4f); margin: 16px 0 4px; }
+.fc-tools { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
+.fc-tools .btn { padding: 9px 18px; font-size: .85rem; }
+.fc-tools .btn[aria-pressed="true"] { background: var(--peach, #fbe7d3); border-color: var(--orange, #dd6f0c); }
+.fc-chip-row { margin-top: 6px; font-size: .74rem; color: var(--terracotta, #bd6f4f); }
+
+/* ----- điện thoại: thẻ cao hơn để chữ đủ lớn, giữ nguyên bố cục/màu/trang trí ----- */
+@container (max-width: 540px) {
+  .fc-card { aspect-ratio: 2 / 1; }
+  .fc-title { font-size: 9.4cqw; top: 22.5%; }
+  .fc-words--multi { left: 13%; right: 13%; }
+  .fc-words { font-size: calc(var(--k, 7) * 1.3cqw); left: 12%; right: 12%; top: 11%; bottom: 27%; }
+  .fc-read { font-size: calc(var(--r, 4.9) * 1.1cqw); top: 45%; min-width: 72%; max-width: 82%; min-height: 0; flex-direction: column; flex-wrap: nowrap; row-gap: .1em; padding: 2.2cqw 3cqw; }
+}
+@media (max-width: 600px) { .fc-kbd { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .fc-card { transition: none; }
+}
+
+/* ============================================================
+   FLASHCARD SHINKANZEN TV N3 — cùng bộ màu / trang trí / phông chữ với Flashcard Kanji
+   Mặt trước (hồng): từ vựng · Mặt sau (xanh): Cách đọc – Nghĩa – Ví dụ
+   ============================================================ */
+.fc-card.fc-card--sv { aspect-ratio: 1196 / 470; }
+.fc-face .fc-title.fc-title--word { top: 50%; font-size: calc(var(--w, 11) * 1cqw); }
+.fc-title--word .fc-k { line-height: 1.2; }
+
+.fc-sv-back {
+  position: absolute;
+  left: 13%;
+  right: 16%;
+  top: 8.5%;
+  bottom: 12%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.6cqw 3.2cqw;
+  border-radius: 3.6cqw;
+  background: rgba(255, 255, 255, .5);
+  font-size: calc(var(--s, 3.9) * 1cqw);
+  line-height: 1.34;
+  color: #012157;
+  overflow: hidden;
+}
+.fc-sv-back .fc-dash rect { stroke: #9EC3F0; }
+.fc-sv-in {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: .3em;
+}
+.fc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: .5em;
+}
+.fc-sv-in .fc-lab { flex: 0 0 auto; font-weight: 700; white-space: nowrap; }
+.fc-sv-val { flex: 1 1 auto; min-width: 0; font-weight: 500; overflow-wrap: anywhere; }
+.fc-sv-vi { font-family: "Inter", "Noto Sans", "Segoe UI", Arial, sans-serif; font-weight: 600; }
+.fc-sv-jp { display: block; font-weight: 700; }
+.fc-sv-tr { display: block; font-family: "Inter", "Noto Sans", "Segoe UI", Arial, sans-serif; font-weight: 500; font-size: .9em; margin-top: .06em; }
+
+@container (max-width: 540px) {
+  .fc-card.fc-card--sv { aspect-ratio: 3 / 2; }
+  .fc-face .fc-title.fc-title--word { top: 50%; font-size: calc(var(--w, 11) * 1.2cqw); }
+  .fc-sv-back { left: 11.5%; right: 13.5%; top: 9%; bottom: 13%; padding: 2.2cqw 3.4cqw; border-radius: 4.4cqw; }
+}
+
 </style>
 </head>
 <body>
@@ -1960,6 +2177,9 @@ const TV_CHAPTERS_META = [
    chi doi sang collection rieng "testtiengviet" de tach du lieu.
    ============================================================ */
 
+/* Du lieu tu vung VLS (462 tu, 12 bai) - nguon: Tu_vung_VLS.xlsx */
+const VLS_CARDS = [{"lesson":1,"vi":"anh","ja":"あなた（男性・年上）","ex_vi":"Anh tên là gì?","ex_ja":"お名前は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"bà","ja":"あなた（女性・年配）／おばあさん","ex_vi":"Bà khỏe không?","ex_ja":"お元気ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"bạn","ja":"あなた（友達）／友達","ex_vi":"Bạn tên là gì?","ex_ja":"お名前は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"cám ơn","ja":"ありがとう","ex_vi":"Cám ơn bạn rất nhiều.","ex_ja":"どうもありがとう。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"chào","ja":"こんにちは、やあ","ex_vi":"Chào bạn!","ex_ja":"こんにちは！","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"chị","ja":"あなた（女性・年上）","ex_vi":"Chị tên là gì?","ex_ja":"お名前は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"cô","ja":"あなた（女性）／先生（女性）","ex_vi":"Cô là giáo viên.","ex_ja":"彼女は先生です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"còn","ja":"では、そして","ex_vi":"Tôi là sinh viên, còn bạn?","ex_ja":"私は学生です、あなたは？","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"của","ja":"〜の","ex_vi":"Đây là sách của tôi.","ex_ja":"これは私の本です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"cũng","ja":"〜も","ex_vi":"Tôi cũng là sinh viên.","ex_ja":"私も学生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"đây","ja":"これ、ここ","ex_vi":"Đây là bạn tôi.","ex_ja":"これは私の友達です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"em","ja":"あなた（年下）／私（年下）","ex_vi":"Em tên là gì?","ex_ja":"お名前は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"gặp","ja":"会う","ex_vi":"Tôi gặp bạn ở đây.","ex_ja":"私はここで友達に会います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":1,"vi":"gì","ja":"何","ex_vi":"Đây là cái gì?","ex_ja":"これは何ですか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":1,"vi":"giới thiệu","ja":"紹介する／紹介","ex_vi":"Tôi giới thiệu bạn tôi.","ex_ja":"私は友達を紹介します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":1,"vi":"hỏi","ja":"聞く、質問する","ex_vi":"Tôi hỏi cô giáo.","ex_ja":"私は先生に聞きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":1,"vi":"hôm nay","ja":"今日","ex_vi":"Hôm nay tôi rất vui.","ex_ja":"今日、私はとても嬉しいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"hôm qua","ja":"昨日","ex_vi":"Hôm qua tôi mệt.","ex_ja":"昨日、私は疲れました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"khỏe","ja":"元気な","ex_vi":"Bạn khỏe không?","ex_ja":"お元気ですか？","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":1,"vi":"không","ja":"いいえ、〜ない","ex_vi":"Tôi không mệt.","ex_ja":"私は疲れていません。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"không sao","ja":"大丈夫","ex_vi":"Không sao, cám ơn bạn.","ex_ja":"大丈夫です、ありがとう。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"là","ja":"〜です","ex_vi":"Tôi là sinh viên.","ex_ja":"私は学生です。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":1,"vi":"mệt","ja":"疲れた","ex_vi":"Tôi rất mệt.","ex_ja":"私はとても疲れています。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":1,"vi":"nhưng","ja":"しかし","ex_vi":"Tôi mệt nhưng vui.","ex_ja":"疲れているけど嬉しいです。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"ông","ja":"あなた（男性・年配）／おじいさん","ex_vi":"Ông khỏe không?","ex_ja":"お元気ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"rất","ja":"とても","ex_vi":"Tôi rất vui.","ex_ja":"私はとても嬉しいです。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"tên","ja":"名前","ex_vi":"Tên bạn là gì?","ex_ja":"お名前は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"thầy","ja":"先生（男性）","ex_vi":"Thầy là giáo viên.","ex_ja":"先生は教師です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":1,"vi":"tôi","ja":"私","ex_vi":"Tôi là sinh viên.","ex_ja":"私は学生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"tự","ja":"自分で","ex_vi":"Tôi tự giới thiệu.","ex_ja":"自己紹介します。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"và","ja":"と、そして","ex_vi":"Tôi và bạn tôi.","ex_ja":"私と私の友達。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"với","ja":"〜と一緒に","ex_vi":"Tôi đi với bạn.","ex_ja":"私は友達と一緒に行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":1,"vi":"vui","ja":"嬉しい、楽しい","ex_vi":"Tôi rất vui.","ex_ja":"私はとても嬉しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":1,"vi":"xin lỗi","ja":"すみません、ごめんなさい","ex_vi":"Xin lỗi, tôi đến muộn.","ex_ja":"すみません、遅れました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"ai","ja":"誰","ex_vi":"Đó là ai?","ex_ja":"それは誰ですか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":2,"vi":"Anh (nước Anh)","ja":"イギリス","ex_vi":"Anh ấy đến từ Anh.","ex_ja":"彼はイギリス出身です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"anh ấy","ja":"彼","ex_vi":"Anh ấy là sinh viên.","ex_ja":"彼は学生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"bà ấy","ja":"彼女（年配）","ex_vi":"Bà ấy là giáo viên.","ex_ja":"彼女は先生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"bạn","ja":"友達","ex_vi":"Đây là bạn tôi.","ex_ja":"これは私の友達です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"biết","ja":"知っている","ex_vi":"Tôi biết anh ấy.","ex_ja":"私は彼を知っています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"các","ja":"〜たち（複数を表す）","ex_vi":"Các bạn là sinh viên.","ex_ja":"皆さんは学生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"chị ấy","ja":"彼女","ex_vi":"Chị ấy là người Nhật.","ex_ja":"彼女は日本人です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"có lẽ","ja":"たぶん","ex_vi":"Có lẽ anh ấy là người Pháp.","ex_ja":"彼はたぶんフランス人です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"cô ấy","ja":"彼女","ex_vi":"Cô ấy là bác sĩ.","ex_ja":"彼女は医者です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"đâu","ja":"どこ","ex_vi":"Bạn ở đâu?","ex_ja":"どこにいますか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":2,"vi":"để","ja":"〜するために","ex_vi":"Tôi học tiếng Việt để đi làm.","ex_ja":"仕事のためにベトナム語を勉強します。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"đến","ja":"来る、到着する","ex_vi":"Tôi đến Việt Nam.","ex_ja":"私はベトナムに来ました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"đi","ja":"行く","ex_vi":"Tôi đi học.","ex_ja":"私は学校に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"đi học","ja":"学校に行く","ex_vi":"Hôm nay tôi đi học.","ex_ja":"今日、私は学校に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"đó","ja":"それ、あれ","ex_vi":"Đó là sách của tôi.","ex_ja":"それは私の本です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"Đức","ja":"ドイツ","ex_vi":"Cô ấy là người Đức.","ex_ja":"彼女はドイツ人です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"em ấy","ja":"彼、彼女（年下）","ex_vi":"Em ấy là học sinh.","ex_ja":"彼は生徒です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"giáo viên","ja":"教師","ex_vi":"Cô ấy là giáo viên.","ex_ja":"彼女は教師です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"Hàn Quốc","ja":"韓国","ex_vi":"Anh ấy đến từ Hàn Quốc.","ex_ja":"彼は韓国出身です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"họ","ja":"彼ら","ex_vi":"Họ là sinh viên.","ex_ja":"彼らは学生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"khác","ja":"他の、違う","ex_vi":"Đây là sách khác.","ex_ja":"これは別の本です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":2,"vi":"kia","ja":"あそこ、あれ","ex_vi":"Đó là nhà kia.","ex_ja":"あれはあの家です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"muốn","ja":"〜したい","ex_vi":"Tôi muốn học tiếng Việt.","ex_ja":"私はベトナム語を学びたいです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"Mỹ","ja":"アメリカ","ex_vi":"Tôi đến từ Mỹ.","ex_ja":"私はアメリカから来ました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"nào","ja":"どの","ex_vi":"Bạn thích cuốn sách nào?","ex_ja":"どの本が好きですか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":2,"vi":"người","ja":"人","ex_vi":"Anh ấy là người Việt Nam.","ex_ja":"彼はベトナム人です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"Nhật","ja":"日本","ex_vi":"Tôi là người Nhật.","ex_ja":"私は日本人です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"nói","ja":"話す、言う","ex_vi":"Tôi nói tiếng Việt.","ex_ja":"私はベトナム語を話します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":2,"vi":"nước","ja":"国","ex_vi":"Việt Nam là một nước đẹp.","ex_ja":"ベトナムは美しい国です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"nước ngoài","ja":"外国","ex_vi":"Tôi làm việc ở nước ngoài.","ex_ja":"私は外国で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"ông ấy","ja":"彼（年配）","ex_vi":"Ông ấy là giám đốc.","ex_ja":"彼は社長です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"phải","ja":"正しい、はい","ex_vi":"Phải, tôi là sinh viên.","ex_ja":"はい、私は学生です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":2,"vi":"phải không","ja":"〜ですよね？","ex_vi":"Bạn là người Nhật, phải không?","ex_ja":"あなたは日本人ですよね？","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":2,"vi":"Pháp","ja":"フランス","ex_vi":"Cô ấy là người Pháp.","ex_ja":"彼女はフランス人です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"quốc tịch","ja":"国籍","ex_vi":"Quốc tịch của bạn là gì?","ex_ja":"あなたの国籍は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"sinh viên","ja":"大学生","ex_vi":"Tôi là sinh viên.","ex_ja":"私は大学生です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"Thái Lan","ja":"タイ","ex_vi":"Anh ấy đến từ Thái Lan.","ex_ja":"彼はタイから来ました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"Trung Quốc","ja":"中国","ex_vi":"Cô ấy là người Trung Quốc.","ex_ja":"彼女は中国人です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"Úc","ja":"オーストラリア","ex_vi":"Tôi đến từ Úc.","ex_ja":"私はオーストラリアから来ました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":2,"vi":"vâng","ja":"はい","ex_vi":"Vâng, tôi hiểu.","ex_ja":"はい、わかりました。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":3,"vi":"bài","ja":"課、レッスン","ex_vi":"Bài này khó.","ex_ja":"このレッスンは難しいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"chăm chỉ","ja":"熱心な、勤勉な","ex_vi":"Anh ấy học rất chăm chỉ.","ex_ja":"彼はとても熱心に勉強します。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"chúng tôi","ja":"私たち","ex_vi":"Chúng tôi là sinh viên.","ex_ja":"私たちは学生です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":3,"vi":"có","ja":"持っている、ある","ex_vi":"Tôi có một cuốn sách.","ex_ja":"私は本を一冊持っています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":3,"vi":"dạy","ja":"教える","ex_vi":"Cô ấy dạy tiếng Việt.","ex_ja":"彼女はベトナム語を教えます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":3,"vi":"dễ","ja":"簡単な","ex_vi":"Bài này dễ.","ex_ja":"このレッスンは簡単です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"đại học","ja":"大学","ex_vi":"Tôi học ở đại học.","ex_ja":"私は大学で学んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"đăng ký","ja":"登録する","ex_vi":"Tôi đăng ký học tiếng Việt.","ex_ja":"私はベトナム語のコースに登録します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":3,"vi":"đông","ja":"混んでいる","ex_vi":"Lớp học rất đông.","ex_ja":"クラスはとても混んでいます。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"đúng","ja":"正しい","ex_vi":"Câu này đúng.","ex_ja":"この文は正しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"học","ja":"学ぶ","ex_vi":"Tôi học tiếng Việt.","ex_ja":"私はベトナム語を学びます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":3,"vi":"học viên","ja":"学習者、研修生","ex_vi":"Học viên rất chăm chỉ.","ex_ja":"学習者はとても熱心です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"khó","ja":"難しい","ex_vi":"Tiếng Việt khó nhưng thú vị.","ex_ja":"ベトナム語は難しいけど面白いです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"khoa","ja":"学部、科","ex_vi":"Khoa của tôi rất nổi tiếng.","ex_ja":"私の学部はとても有名です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"khoa học","ja":"科学","ex_vi":"Anh ấy học khoa học.","ex_ja":"彼は科学を学んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"lớp","ja":"クラス","ex_vi":"Lớp tôi có 20 học viên.","ex_ja":"私のクラスには20人の学習者がいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"mấy","ja":"いくつ","ex_vi":"Bạn học mấy năm rồi?","ex_ja":"何年学びましたか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":3,"vi":"năm","ja":"年","ex_vi":"Tôi học tiếng Việt hai năm.","ex_ja":"私は2年間ベトナム語を学びました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"nhân văn","ja":"人文（学）","ex_vi":"Cô ấy học khoa nhân văn.","ex_ja":"彼女は人文学部で学んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"nhiều","ja":"たくさんの","ex_vi":"Tôi có nhiều bạn.","ex_ja":"私はたくさんの友達がいます。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"nổi tiếng","ja":"有名な","ex_vi":"Trường này rất nổi tiếng.","ex_ja":"この学校はとても有名です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"ở","ja":"〜で、〜に","ex_vi":"Tôi học ở đại học.","ex_ja":"私は大学で学んでいます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":3,"vi":"ở đó","ja":"そこに","ex_vi":"Tôi học ở đó.","ex_ja":"私はそこで学んでいます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":3,"vi":"tháng","ja":"月","ex_vi":"Tôi học tiếng Việt một tháng.","ex_ja":"私は1ヶ月ベトナム語を学びました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"thành phố","ja":"都市","ex_vi":"Tôi sống ở thành phố Hà Nội.","ex_ja":"私はハノイ市に住んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"thích","ja":"好き","ex_vi":"Tôi thích học tiếng Việt.","ex_ja":"私はベトナム語を学ぶのが好きです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":3,"vi":"thú vị","ja":"面白い","ex_vi":"Bài học này rất thú vị.","ex_ja":"このレッスンはとても面白いです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":3,"vi":"thư ký","ja":"秘書","ex_vi":"Cô ấy là thư ký.","ex_ja":"彼女は秘書です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"tiếng Việt","ja":"ベトナム語","ex_vi":"Tôi học tiếng Việt.","ex_ja":"私はベトナム語を学びます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"trong","ja":"〜の中で","ex_vi":"Sách ở trong túi.","ex_ja":"本はバッグの中にあります。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":3,"vi":"trước đây","ja":"以前","ex_vi":"Trước đây tôi không biết tiếng Việt.","ex_ja":"以前、私はベトナム語を知りませんでした。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":3,"vi":"trường","ja":"学校","ex_vi":"Trường tôi rất đẹp.","ex_ja":"私の学校はとても綺麗です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":3,"vi":"xã hội","ja":"社会","ex_vi":"Đây là vấn đề xã hội.","ex_ja":"これは社会問題です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"bác sĩ","ja":"医者","ex_vi":"Anh ấy là bác sĩ.","ex_ja":"彼は医者です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"bao nhiêu","ja":"いくつ、いくら","ex_vi":"Bạn bao nhiêu tuổi?","ex_ja":"あなたは何歳ですか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":4,"vi":"bắt đầu","ja":"始まる、始める","ex_vi":"Lớp học bắt đầu lúc 8 giờ.","ex_ja":"授業は8時に始まります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"bận","ja":"忙しい","ex_vi":"Tôi rất bận.","ex_ja":"私はとても忙しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":4,"vi":"bệnh viện","ja":"病院","ex_vi":"Tôi làm việc ở bệnh viện.","ex_ja":"私は病院で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"(buổi) chiều","ja":"午後","ex_vi":"Tôi làm việc vào buổi chiều.","ex_ja":"私は午後に働きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"(buổi) sáng","ja":"午前、朝","ex_vi":"Tôi đi làm vào buổi sáng.","ex_ja":"私は朝に仕事に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"(buổi) tối","ja":"夜","ex_vi":"Tôi học tiếng Việt vào buổi tối.","ex_ja":"私は夜にベトナム語を学びます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"công ty","ja":"会社","ex_vi":"Tôi làm việc ở công ty này.","ex_ja":"私はこの会社で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"công việc","ja":"仕事","ex_vi":"Công việc của tôi rất vất vả.","ex_ja":"私の仕事はとても大変です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"cơ quan","ja":"職場、機関","ex_vi":"Cơ quan tôi ở gần đây.","ex_ja":"私の職場はこの近くです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"dạo này","ja":"最近","ex_vi":"Dạo này bạn thế nào?","ex_ja":"最近どうですか？","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"đi làm","ja":"仕事に行く","ex_vi":"Tôi đi làm bằng xe máy.","ex_ja":"私はバイクで仕事に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"giờ/tiếng","ja":"時間","ex_vi":"Tôi làm việc tám giờ một ngày.","ex_ja":"私は一日8時間働きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"hay","ja":"または","ex_vi":"Bạn uống cà phê hay trà?","ex_ja":"コーヒーかお茶を飲みますか？","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"hiện nay","ja":"現在","ex_vi":"Hiện nay tôi làm ở ngân hàng.","ex_ja":"現在、私は銀行で働いています。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"kế toán","ja":"会計士","ex_vi":"Chị ấy là kế toán.","ex_ja":"彼女は会計士です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"khoảng","ja":"およそ","ex_vi":"Tôi làm việc khoảng tám giờ.","ex_ja":"私はおよそ8時間働きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"lái xe","ja":"車を運転する","ex_vi":"Anh ấy lái xe đi làm.","ex_ja":"彼は運転して仕事に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"làm/làm việc","ja":"働く","ex_vi":"Tôi làm việc ở công ty.","ex_ja":"私は会社で働いています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"lắm","ja":"とても","ex_vi":"Công việc bận lắm.","ex_ja":"仕事はとても忙しいです。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"luật sư","ja":"弁護士","ex_vi":"Anh ấy là luật sư.","ex_ja":"彼は弁護士です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"máy tính","ja":"コンピューター","ex_vi":"Tôi làm việc với máy tính.","ex_ja":"私はコンピューターで作業します。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"nấu ăn","ja":"料理する","ex_vi":"Mẹ tôi nấu ăn rất ngon.","ex_ja":"私の母は料理がとても上手です。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"nội trợ","ja":"主婦","ex_vi":"Mẹ tôi là nội trợ.","ex_ja":"私の母は主婦です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"ngày","ja":"日","ex_vi":"Một ngày có 24 giờ.","ex_ja":"一日は24時間です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"ngân hàng","ja":"銀行","ex_vi":"Tôi làm việc ở ngân hàng.","ex_ja":"私は銀行で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"nghề","ja":"職業","ex_vi":"Nghề của bạn là gì?","ex_ja":"あなたの職業は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"nhà","ja":"家","ex_vi":"Nhà tôi ở gần đây.","ex_ja":"私の家はこの近くです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"nhà hàng","ja":"レストラン","ex_vi":"Chúng tôi ăn ở nhà hàng.","ex_ja":"私たちはレストランで食べます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"nhầm","ja":"間違える","ex_vi":"Tôi gọi nhầm số điện thoại.","ex_ja":"私は電話番号を間違えました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"nhân viên","ja":"職員、スタッフ","ex_vi":"Anh ấy là nhân viên ngân hàng.","ex_ja":"彼は銀行員です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"phòng","ja":"部屋","ex_vi":"Phòng tôi rất nhỏ.","ex_ja":"私の部屋はとても小さいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"quán cà phê","ja":"カフェ","ex_vi":"Chúng tôi gặp nhau ở quán cà phê.","ex_ja":"私たちはカフェで会います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"quận","ja":"区","ex_vi":"Tôi sống ở quận 1.","ex_ja":"私は1区に住んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"siêu thị","ja":"スーパー","ex_vi":"Tôi mua rau ở siêu thị.","ex_ja":"私はスーパーで野菜を買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"sống","ja":"住む、生きる","ex_vi":"Tôi sống ở Hà Nội.","ex_ja":"私はハノイに住んでいます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":4,"vi":"tài xế","ja":"運転手","ex_vi":"Anh ấy là tài xế tắc xi.","ex_ja":"彼はタクシー運転手です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"tuần","ja":"週","ex_vi":"Tôi làm việc năm ngày một tuần.","ex_ja":"私は週に5日働きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"trưa","ja":"昼","ex_vi":"Tôi ăn trưa lúc 12 giờ.","ex_ja":"私は12時に昼食を食べます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":4,"vi":"từ","ja":"〜から","ex_vi":"Tôi làm việc từ 8 giờ.","ex_ja":"私は8時から働きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"vào","ja":"〜に、入る","ex_vi":"Tôi đi làm vào buổi sáng.","ex_ja":"私は朝に仕事に行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":4,"vi":"vất vả","ja":"大変な","ex_vi":"Công việc này rất vất vả.","ex_ja":"この仕事はとても大変です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"ăn","ja":"食べる","ex_vi":"Tôi ăn cơm.","ex_ja":"私はご飯を食べます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"bằng","ja":"〜で","ex_vi":"Tôi đi làm bằng xe buýt.","ex_ja":"私はバスで仕事に行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":5,"vi":"bây giờ","ja":"今","ex_vi":"Bây giờ là mấy giờ?","ex_ja":"今何時ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"bia","ja":"ビール","ex_vi":"Anh ấy uống bia.","ex_ja":"彼はビールを飲みます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"bưu điện","ja":"郵便局","ex_vi":"Bưu điện ở gần đây.","ex_ja":"郵便局はこの近くです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"chợ","ja":"市場","ex_vi":"Tôi mua rau ở chợ.","ex_ja":"私は市場で野菜を買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"chúng ta","ja":"私たち","ex_vi":"Chúng ta đi ăn nhé.","ex_ja":"私たち一緒に食べに行きましょう。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":5,"vi":"có thể","ja":"〜できる","ex_vi":"Tôi có thể nói tiếng Việt.","ex_ja":"私はベトナム語を話すことができます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"cuối tuần","ja":"週末","ex_vi":"Cuối tuần tôi đi chơi.","ex_ja":"週末に私は遊びに行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"du khách/khách","ja":"観光客、客","ex_vi":"Có nhiều du khách ở đây.","ex_ja":"ここには多くの観光客がいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"đài truyền hình","ja":"テレビ局","ex_vi":"Anh ấy làm việc ở đài truyền hình.","ex_ja":"彼はテレビ局で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"đặc biệt","ja":"特別な","ex_vi":"Món ăn này rất đặc biệt.","ex_ja":"この料理はとても特別です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"đẹp","ja":"美しい","ex_vi":"Thành phố này rất đẹp.","ex_ja":"この都市はとても美しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"đi dạo","ja":"散歩する","ex_vi":"Tôi đi dạo mỗi sáng.","ex_ja":"私は毎朝散歩します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"địa chỉ","ja":"住所","ex_vi":"Địa chỉ của bạn là gì?","ex_ja":"あなたの住所は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"đường","ja":"道","ex_vi":"Đường này rất đông.","ex_ja":"この道はとても混んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"ga","ja":"駅","ex_vi":"Ga gần nhà tôi.","ex_ja":"駅は私の家の近くです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"gần","ja":"近い","ex_vi":"Nhà tôi gần công ty.","ex_ja":"私の家は会社に近いです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"gia đình","ja":"家族","ex_vi":"Gia đình tôi có bốn người.","ex_ja":"私の家族は4人です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"giá","ja":"価格","ex_vi":"Giá của món này là bao nhiêu?","ex_ja":"この品物の価格はいくらですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"giảm giá","ja":"割引する","ex_vi":"Cửa hàng này giảm giá 20%.","ex_ja":"この店は20%割引します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"giỏi","ja":"上手な","ex_vi":"Bạn nói tiếng Việt rất giỏi.","ex_ja":"あなたはベトナム語がとても上手です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"khen","ja":"褒める","ex_vi":"Cô giáo khen tôi.","ex_ja":"先生が私を褒めました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"lịch sử","ja":"歴史","ex_vi":"Tôi thích lịch sử Việt Nam.","ex_ja":"私はベトナムの歴史が好きです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"mắc","ja":"高い（値段）","ex_vi":"Món ăn này mắc quá.","ex_ja":"この料理は高すぎます。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"món ăn","ja":"料理","ex_vi":"Món ăn này rất ngon.","ex_ja":"この料理はとても美味しいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"mời","ja":"招待する","ex_vi":"Tôi mời bạn đi ăn.","ex_ja":"私はあなたを食事に招待します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"mua","ja":"買う","ex_vi":"Tôi mua sách ở nhà sách.","ex_ja":"私は本屋で本を買います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"ngon","ja":"美味しい","ex_vi":"Món này rất ngon.","ex_ja":"この料理はとても美味しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"ngồi","ja":"座る","ex_vi":"Chúng ta ngồi ở đây.","ex_ja":"私たちはここに座ります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"Nhà thờ Đức Bà","ja":"ノートルダム大聖堂","ex_vi":"Nhà thờ Đức Bà rất đẹp.","ex_ja":"ノートルダム大聖堂はとても美しいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"nhà sách","ja":"本屋","ex_vi":"Tôi mua sách ở nhà sách.","ex_ja":"私は本屋で本を買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"nói chuyện","ja":"話す、会話する","ex_vi":"Chúng tôi nói chuyện với nhau.","ex_ja":"私たちはお互いに話します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"nơi","ja":"場所","ex_vi":"Đây là nơi tôi sinh ra.","ex_ja":"ここは私が生まれた場所です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"phòng học","ja":"教室","ex_vi":"Phòng học của tôi rất rộng.","ex_ja":"私の教室はとても広いです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"phố đi bộ","ja":"歩行者天国","ex_vi":"Chúng tôi đi dạo ở phố đi bộ.","ex_ja":"私たちは歩行者天国を散歩します。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"phường","ja":"坊（行政区）","ex_vi":"Tôi sống ở phường 5.","ex_ja":"私は5区に住んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"say","ja":"酔った","ex_vi":"Anh ấy uống say rồi.","ex_ja":"彼はもう酔っています。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"tham quan","ja":"見学する、観光する","ex_vi":"Chúng tôi tham quan bảo tàng.","ex_ja":"私たちは博物館を見学します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"tắc xi","ja":"タクシー","ex_vi":"Tôi đi tắc xi về nhà.","ex_ja":"私はタクシーで家に帰ります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"tối nay","ja":"今晩","ex_vi":"Tối nay tôi đi ăn với bạn.","ex_ja":"今晩、私は友達と食事に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"tốt","ja":"良い","ex_vi":"Đây là ý tưởng tốt.","ex_ja":"これは良いアイデアです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"tươi","ja":"新鮮な","ex_vi":"Rau này rất tươi.","ex_ja":"この野菜はとても新鮮です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"trung tâm","ja":"中心","ex_vi":"Tôi làm việc ở trung tâm thành phố.","ex_ja":"私は市の中心で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"uống","ja":"飲む","ex_vi":"Tôi uống cà phê mỗi sáng.","ex_ja":"私は毎朝コーヒーを飲みます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"văn phòng","ja":"事務所","ex_vi":"Văn phòng tôi ở tầng 3.","ex_ja":"私の事務所は3階にあります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":5,"vi":"về","ja":"帰る","ex_vi":"Tôi về nhà lúc 6 giờ.","ex_ja":"私は6時に家に帰ります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":5,"vi":"với","ja":"〜と一緒に","ex_vi":"Tôi đi với bạn tôi.","ex_ja":"私は友達と一緒に行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":5,"vi":"xa","ja":"遠い","ex_vi":"Nhà tôi xa công ty.","ex_ja":"私の家は会社から遠いです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":5,"vi":"xe buýt","ja":"バス","ex_vi":"Tôi đi làm bằng xe buýt.","ex_ja":"私はバスで仕事に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"áo dài","ja":"アオザイ","ex_vi":"Cô ấy mặc áo dài rất đẹp.","ex_ja":"彼女はとても美しいアオザイを着ています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"bảo tàng","ja":"博物館","ex_vi":"Chúng tôi tham quan bảo tàng.","ex_ja":"私たちは博物館を見学します。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"cà phê","ja":"コーヒー","ex_vi":"Tôi uống cà phê mỗi sáng.","ex_ja":"私は毎朝コーヒーを飲みます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"chỉ","ja":"〜だけ","ex_vi":"Tôi chỉ có một cuốn sách.","ex_ja":"私は本を一冊だけ持っています。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":6,"vi":"cũ","ja":"古い","ex_vi":"Cái này cũ rồi.","ex_ja":"これは古くなりました。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":6,"vi":"cùng","ja":"一緒に、同じ","ex_vi":"Chúng ta học cùng lớp.","ex_ja":"私たちは同じクラスで学びます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":6,"vi":"du lịch","ja":"旅行する","ex_vi":"Tôi thích đi du lịch.","ex_ja":"私は旅行が好きです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"đá","ja":"氷","ex_vi":"Cho tôi cà phê đá.","ex_ja":"アイスコーヒーをください。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"đưa","ja":"連れて行く、渡す","ex_vi":"Tôi đưa bạn đến sân bay.","ex_ja":"私は空港まであなたを送ります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"giám đốc","ja":"社長、ディレクター","ex_vi":"Ông ấy là giám đốc công ty.","ex_ja":"彼は会社の社長です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"giảng viên","ja":"講師","ex_vi":"Cô ấy là giảng viên đại học.","ex_ja":"彼女は大学の講師です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"hẹn gặp lại","ja":"また会いましょう","ex_vi":"Hẹn gặp lại bạn nhé!","ex_ja":"また会いましょう！","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":6,"vi":"hiểu","ja":"わかる、理解する","ex_vi":"Tôi hiểu bài này.","ex_ja":"私はこのレッスンを理解しています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"hoặc","ja":"または","ex_vi":"Bạn uống trà hoặc cà phê?","ex_ja":"お茶かコーヒーを飲みますか？","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":6,"vi":"khác","ja":"違う、他の","ex_vi":"Tôi muốn mua cái khác.","ex_ja":"私は別のものを買いたいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":6,"vi":"lý do","ja":"理由","ex_vi":"Lý do bạn học tiếng Việt là gì?","ex_ja":"あなたがベトナム語を学ぶ理由は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"mất","ja":"かかる（時間）","ex_vi":"Đi từ đây mất 30 phút.","ex_ja":"ここから30分かかります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"nghề nghiệp","ja":"職業","ex_vi":"Nghề nghiệp của bạn là gì?","ex_ja":"あなたの職業は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"nhận","ja":"受け取る","ex_vi":"Tôi nhận thư của bạn.","ex_ja":"私はあなたの手紙を受け取りました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"nhớ","ja":"覚えている、思い出す","ex_vi":"Tôi nhớ bạn.","ex_ja":"私はあなたを思い出します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"như trước","ja":"以前のように","ex_vi":"Bây giờ tôi khỏe như trước.","ex_ja":"今、私は以前のように元気です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":6,"vi":"phát âm","ja":"発音する","ex_vi":"Bạn phát âm rất tốt.","ex_ja":"あなたは発音がとても良いです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":6,"vi":"quán ăn","ja":"食堂","ex_vi":"Chúng tôi ăn ở quán ăn nhỏ.","ex_ja":"私たちは小さな食堂で食べます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"rảnh","ja":"暇な","ex_vi":"Tối nay tôi rảnh.","ex_ja":"今晩、私は暇です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":6,"vi":"sân bay","ja":"空港","ex_vi":"Tôi đến sân bay lúc 7 giờ.","ex_ja":"私は7時に空港に着きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"sữa","ja":"牛乳","ex_vi":"Tôi uống sữa mỗi sáng.","ex_ja":"私は毎朝牛乳を飲みます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":6,"vi":"thăm","ja":"訪ねる","ex_vi":"Tôi đi thăm bạn.","ex_ja":"私は友達を訪ねに行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"ăn sáng","ja":"朝食を食べる","ex_vi":"Tôi ăn sáng lúc 7 giờ.","ex_ja":"私は7時に朝食を食べます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"ăn tối","ja":"夕食を食べる","ex_vi":"Chúng tôi ăn tối cùng nhau.","ex_ja":"私たちは一緒に夕食を食べます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"ăn trưa","ja":"昼食を食べる","ex_vi":"Tôi ăn trưa ở căng tin.","ex_ja":"私は食堂で昼食を食べます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"bài tập","ja":"課題","ex_vi":"Tôi làm bài tập mỗi tối.","ex_ja":"私は毎晩課題をします。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"bạn bè","ja":"友達","ex_vi":"Tôi có nhiều bạn bè.","ex_ja":"私はたくさんの友達がいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"bạn cùng lớp","ja":"クラスメート","ex_vi":"Đây là bạn cùng lớp của tôi.","ex_ja":"これは私のクラスメートです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"buồn ngủ","ja":"眠い","ex_vi":"Tôi buồn ngủ quá.","ex_ja":"私はとても眠いです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":7,"vi":"bữa (ăn) sáng","ja":"朝食","ex_vi":"Bữa sáng của tôi rất đơn giản.","ex_ja":"私の朝食はとても簡単です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"căng tin","ja":"食堂","ex_vi":"Chúng tôi ăn ở căng tin.","ex_ja":"私たちは食堂で食べます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"chờ","ja":"待つ","ex_vi":"Tôi chờ bạn ở đây.","ex_ja":"私はここであなたを待ちます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"chuẩn bị","ja":"準備する","ex_vi":"Tôi chuẩn bị bài học.","ex_ja":"私は授業の準備をします。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"đánh răng","ja":"歯を磨く","ex_vi":"Tôi đánh răng trước khi ngủ.","ex_ja":"私は寝る前に歯を磨きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"đêm","ja":"夜","ex_vi":"Đêm nay trời lạnh.","ex_ja":"今夜は寒いです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"đi chơi","ja":"遊びに行く","ex_vi":"Cuối tuần tôi đi chơi với bạn.","ex_ja":"週末、私は友達と遊びに行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"đi ngủ","ja":"寝る","ex_vi":"Tôi đi ngủ lúc 11 giờ.","ex_ja":"私は11時に寝ます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"đi ra ngoài","ja":"外に出る","ex_vi":"Tôi đi ra ngoài một chút.","ex_ja":"私は少し外に出ます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"hơi","ja":"少し","ex_vi":"Tôi hơi mệt.","ex_ja":"私は少し疲れています。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"lâu","ja":"長い間","ex_vi":"Tôi chờ bạn rất lâu.","ex_ja":"私はあなたを長い間待ちました。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":7,"vi":"lên mạng","ja":"ネットをする","ex_vi":"Tôi lên mạng để học tiếng Việt.","ex_ja":"私はベトナム語を学ぶためにネットをします。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"lúc","ja":"〜のとき","ex_vi":"Lúc tôi về nhà, trời mưa.","ex_ja":"私が家に帰った時、雨が降っていました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"mang","ja":"持って行く","ex_vi":"Tôi mang sách đến lớp.","ex_ja":"私は本を教室に持って行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"nghe","ja":"聞く","ex_vi":"Tôi nghe nhạc mỗi sáng.","ex_ja":"私は毎朝音楽を聞きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"nhạc","ja":"音楽","ex_vi":"Tôi thích nghe nhạc Việt Nam.","ex_ja":"私はベトナムの音楽を聞くのが好きです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"nhỏ","ja":"小さい","ex_vi":"Phòng tôi rất nhỏ.","ex_ja":"私の部屋はとても小さいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":7,"vi":"no","ja":"満腹の","ex_vi":"Tôi ăn no rồi.","ex_ja":"私はもう満腹です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":7,"vi":"ở nhà","ja":"家にいる","ex_vi":"Cuối tuần tôi ở nhà.","ex_ja":"週末、私は家にいます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"phim","ja":"映画","ex_vi":"Tôi thích xem phim.","ex_ja":"私は映画を見るのが好きです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"qua","ja":"通って","ex_vi":"Tôi đi qua công viên.","ex_ja":"私は公園を通って行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"sử dụng","ja":"使用する","ex_vi":"Tôi sử dụng máy tính mỗi ngày.","ex_ja":"私は毎日パソコンを使います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"sáng nay","ja":"今朝","ex_vi":"Sáng nay tôi dậy sớm.","ex_ja":"今朝、私は早く起きました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"tại","ja":"〜で","ex_vi":"Tôi làm việc tại công ty này.","ex_ja":"私はこの会社で働いています。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"thường","ja":"いつも、普通","ex_vi":"Tôi thường ăn sáng ở nhà.","ex_ja":"私はいつも家で朝食を食べます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"thức khuya","ja":"夜更かしする","ex_vi":"Tôi không nên thức khuya.","ex_ja":"夜更かしすべきではありません。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":7,"vi":"tivi","ja":"テレビ","ex_vi":"Tôi xem tivi vào buổi tối.","ex_ja":"私は夜にテレビを見ます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"tin tức","ja":"ニュース","ex_vi":"Tôi xem tin tức mỗi sáng.","ex_ja":"私は毎朝ニュースを見ます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"tiệm ăn","ja":"食堂","ex_vi":"Chúng tôi ăn ở tiệm ăn nhỏ.","ex_ja":"私たちは小さな食堂で食べます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":7,"vi":"trên","ja":"〜の上に","ex_vi":"Sách ở trên bàn.","ex_ja":"本はテーブルの上にあります。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"trước khi","ja":"〜する前に","ex_vi":"Tôi đánh răng trước khi đi ngủ.","ex_ja":"私は寝る前に歯を磨きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":7,"vi":"xong","ja":"終わる","ex_vi":"Tôi làm bài tập xong rồi.","ex_ja":"私は課題を終えました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"bao lâu","ja":"どのくらい（時間）","ex_vi":"Bạn học tiếng Việt bao lâu rồi?","ex_ja":"どのくらいベトナム語を学びましたか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":8,"vi":"bằng","ja":"〜で","ex_vi":"Tôi viết bằng tiếng Việt.","ex_ja":"私はベトナム語で書きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"bên cạnh","ja":"隣に","ex_vi":"Nhà tôi ở bên cạnh công ty.","ex_ja":"私の家は会社の隣にあります。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"đọc","ja":"読む","ex_vi":"Tôi đọc sách mỗi ngày.","ex_ja":"私は毎日本を読みます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"đơn","ja":"申請書","ex_vi":"Tôi điền đơn xin việc.","ex_ja":"私は仕事の申請書に記入します。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"đúng","ja":"正しい","ex_vi":"Câu trả lời của bạn đúng.","ex_ja":"あなたの答えは正しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"được","ja":"できる","ex_vi":"Tôi được nghỉ hôm nay.","ex_ja":"私は今日休むことができます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"giải thích","ja":"説明する","ex_vi":"Cô giáo giải thích bài học.","ex_ja":"先生が授業を説明します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"gọi điện thoại","ja":"電話をかける","ex_vi":"Tôi gọi điện thoại cho bạn.","ex_ja":"私はあなたに電話をかけます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"hội thoại","ja":"会話","ex_vi":"Chúng tôi luyện tập hội thoại.","ex_ja":"私たちは会話を練習します。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"ít","ja":"少ない","ex_vi":"Tôi có ít thời gian.","ex_ja":"私は時間が少ないです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"khi/lúc","ja":"〜のとき","ex_vi":"Khi tôi đến, bạn đã ở đó.","ex_ja":"私が着いた時、あなたはそこにいました。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"kém","ja":"悪い","ex_vi":"Tiếng Việt của tôi còn kém.","ex_ja":"私のベトナム語はまだ下手です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"lo/lo lắng","ja":"心配する","ex_vi":"Mẹ tôi lo lắng cho tôi.","ex_ja":"母は私のことを心配しています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"mẹ","ja":"母","ex_vi":"Mẹ tôi là nội trợ.","ex_ja":"私の母は主婦です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"một chút","ja":"少し","ex_vi":"Chờ tôi một chút.","ex_ja":"少し待ってください。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"năm sau","ja":"来年","ex_vi":"Năm sau tôi sẽ đi Việt Nam.","ex_ja":"来年、私はベトナムに行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"nên","ja":"だから","ex_vi":"Tôi mệt nên tôi nghỉ.","ex_ja":"疲れたので休みます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"ngại","ja":"恥ずかしい、遠慮する","ex_vi":"Tôi ngại nói tiếng Việt.","ex_ja":"私はベトナム語を話すのが恥ずかしいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"ngạc nhiên","ja":"驚く","ex_vi":"Tôi rất ngạc nhiên.","ex_ja":"私はとても驚きました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"ngoại ngữ","ja":"外国語","ex_vi":"Tôi học ngoại ngữ ở trường.","ex_ja":"私は学校で外国語を学びます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"nghĩa","ja":"意味","ex_vi":"Từ này nghĩa là gì?","ex_ja":"この言葉の意味は何ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"nhỏ tuổi","ja":"年下の","ex_vi":"Em ấy nhỏ tuổi hơn tôi.","ex_ja":"彼は私より年下です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"nhau","ja":"お互いに","ex_vi":"Chúng tôi giúp nhau.","ex_ja":"私たちはお互いに助け合います。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"nói","ja":"話す","ex_vi":"Bạn nói tiếng Việt được không?","ex_ja":"ベトナム語を話せますか？","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"ở đây","ja":"ここに","ex_vi":"Tôi sống ở đây.","ex_ja":"私はここに住んでいます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"phiên dịch","ja":"通訳","ex_vi":"Cô ấy là phiên dịch.","ex_ja":"彼女は通訳者です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"quen","ja":"慣れる","ex_vi":"Tôi quen với thời tiết ở đây.","ex_ja":"私はここの気候に慣れています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"sai","ja":"間違った","ex_vi":"Câu trả lời này sai.","ex_ja":"この答えは間違っています。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"nhanh","ja":"速い","ex_vi":"Bạn nói quá nhanh.","ex_ja":"あなたは話すのが速すぎます。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":8,"vi":"Tây Ban Nha","ja":"スペイン","ex_vi":"Anh ấy đến từ Tây Ban Nha.","ex_ja":"彼はスペインから来ました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"tháng","ja":"月","ex_vi":"Một năm có 12 tháng.","ex_ja":"一年は12ヶ月です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"thầy (thấy)","ja":"思う","ex_vi":"Tôi thấy bạn đúng.","ex_ja":"私はあなたが正しいと思います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"Thế à?","ja":"そうですか？","ex_vi":"Thế à? Tôi không biết.","ex_ja":"そうですか？知りませんでした。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"thế nào","ja":"どのように","ex_vi":"Bạn học tiếng Việt thế nào?","ex_ja":"どうやってベトナム語を学びましたか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":8,"vi":"thử","ja":"試す","ex_vi":"Tôi muốn thử món này.","ex_ja":"私はこの料理を試したいです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"thường","ja":"いつも","ex_vi":"Tôi thường đi bộ đi làm.","ex_ja":"私はいつも歩いて仕事に行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"tiếng","ja":"言語","ex_vi":"Bạn nói được mấy tiếng?","ex_ja":"何言語話せますか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"tuổi","ja":"年齢","ex_vi":"Bạn bao nhiêu tuổi?","ex_ja":"あなたは何歳ですか？","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"từ","ja":"単語","ex_vi":"Tôi học mười từ mới mỗi ngày.","ex_ja":"私は毎日10個の新しい単語を学びます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":8,"vi":"từ từ","ja":"ゆっくり","ex_vi":"Bạn nói từ từ được không?","ex_ja":"ゆっくり話してもらえますか？","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"từng","ja":"〜したことがある","ex_vi":"Tôi từng sống ở Việt Nam.","ex_ja":"私はベトナムに住んだことがあります。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":8,"vi":"viết","ja":"書く","ex_vi":"Tôi viết chữ Việt.","ex_ja":"私はベトナム語の文字を書きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"xin","ja":"頼む、お願いする","ex_vi":"Tôi xin phép nghỉ.","ex_ja":"休みをお願いします。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":8,"vi":"Ý","ja":"イタリア","ex_vi":"Cô ấy đến từ Ý.","ex_ja":"彼女はイタリアから来ました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"ba mẹ/bố mẹ","ja":"両親","ex_vi":"Ba mẹ tôi sống ở Hà Nội.","ex_ja":"私の両親はハノイに住んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"bao giờ","ja":"いつ","ex_vi":"Bao giờ bạn về nước?","ex_ja":"いつ帰国しますか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":9,"vi":"bình thường","ja":"普通の","ex_vi":"Hôm nay là một ngày bình thường.","ex_ja":"今日は普通の日です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":9,"vi":"chủ nhật","ja":"日曜日","ex_vi":"Chủ nhật tôi nghỉ.","ex_ja":"日曜日、私は休みます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"chúc mừng","ja":"祝う","ex_vi":"Chúc mừng sinh nhật!","ex_ja":"お誕生日おめでとう！","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"cuối tuần","ja":"週末","ex_vi":"Cuối tuần tôi đi mua sắm.","ex_ja":"週末、私は買い物に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"dọn dẹp","ja":"掃除する","ex_vi":"Tôi dọn dẹp nhà vào cuối tuần.","ex_ja":"私は週末に家を掃除します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"đặt","ja":"予約する","ex_vi":"Tôi đặt vé máy bay rồi.","ex_ja":"私は飛行機のチケットを予約しました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"đầu","ja":"始まり","ex_vi":"Đây là đầu năm học.","ex_ja":"これは学年の始まりです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"đầu tuần","ja":"週初め","ex_vi":"Đầu tuần tôi rất bận.","ex_ja":"週の初め、私はとても忙しいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"đi công tác","ja":"出張に行く","ex_vi":"Tôi đi công tác ở Nhật.","ex_ja":"私は日本に出張に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"định","ja":"〜する予定","ex_vi":"Tôi định đi Việt Nam.","ex_ja":"私はベトナムに行く予定です。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"hẹn","ja":"約束する","ex_vi":"Tôi hẹn gặp bạn lúc 3 giờ.","ex_ja":"私は3時にあなたと会う約束をします。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"khách hàng","ja":"お客様","ex_vi":"Khách hàng rất hài lòng.","ex_ja":"お客様はとても満足しています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"khó tính","ja":"気難しい","ex_vi":"Giám đốc tôi khó tính lắm.","ex_ja":"私の社長はとても気難しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":9,"vi":"lúc đó","ja":"その時","ex_vi":"Lúc đó tôi còn nhỏ.","ex_ja":"その時、私はまだ小さかったです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"máy bay","ja":"飛行機","ex_vi":"Tôi đi Việt Nam bằng máy bay.","ex_ja":"私は飛行機でベトナムに行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"mệt","ja":"疲れた","ex_vi":"Tôi rất mệt.","ex_ja":"私はとても疲れています。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":9,"vi":"mới","ja":"新しい","ex_vi":"Đây là xe mới của tôi.","ex_ja":"これは私の新しい車です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":9,"vi":"mua sắm","ja":"買い物する","ex_vi":"Tôi thích mua sắm.","ex_ja":"私は買い物が好きです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"nhớ","ja":"覚えている","ex_vi":"Tôi nhớ ngày sinh nhật của bạn.","ex_ja":"私はあなたの誕生日を覚えています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"nữa","ja":"また、さらに","ex_vi":"Tôi sẽ gặp bạn nữa.","ex_ja":"また会いましょう。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":9,"vi":"sau","ja":"後、次","ex_vi":"Tuần sau tôi sẽ đi công tác.","ex_ja":"来週、私は出張します。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":9,"vi":"sinh","ja":"生まれる","ex_vi":"Tôi sinh ở Hà Nội.","ex_ja":"私はハノイで生まれました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"sinh nhật","ja":"誕生日","ex_vi":"Hôm nay là sinh nhật tôi.","ex_ja":"今日は私の誕生日です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"tháng","ja":"月","ex_vi":"Tôi sinh vào tháng 6.","ex_ja":"私は6月に生まれました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"tháng 6","ja":"6月","ex_vi":"Tháng 6 là mùa hè.","ex_ja":"6月は夏です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"tháng 8","ja":"8月","ex_vi":"Tôi đi du lịch vào tháng 8.","ex_ja":"私は8月に旅行に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"thứ ba","ja":"火曜日","ex_vi":"Thứ ba tôi có lớp học.","ex_ja":"火曜日、私は授業があります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"thứ bảy","ja":"土曜日","ex_vi":"Thứ bảy tôi đi chơi.","ex_ja":"土曜日、私は遊びに行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"thứ hai","ja":"月曜日","ex_vi":"Thứ hai tôi bắt đầu làm việc.","ex_ja":"月曜日、私は仕事を始めます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"thứ năm","ja":"木曜日","ex_vi":"Thứ năm tôi có hẹn với bạn.","ex_ja":"木曜日、私は友達と約束があります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"thứ sáu","ja":"金曜日","ex_vi":"Thứ sáu tôi nghỉ làm sớm.","ex_ja":"金曜日、私は早めに仕事を終えます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"thứ tư","ja":"水曜日","ex_vi":"Thứ tư tôi học tiếng Việt.","ex_ja":"水曜日、私はベトナム語を学びます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"tập thể dục","ja":"運動する","ex_vi":"Tôi tập thể dục mỗi sáng.","ex_ja":"私は毎朝運動します。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"tuần","ja":"週","ex_vi":"Một tuần có 7 ngày.","ex_ja":"一週間は7日です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"trở lại","ja":"戻る","ex_vi":"Tôi sẽ trở lại Việt Nam.","ex_ja":"私はベトナムに戻ります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":9,"vi":"trước","ja":"前の","ex_vi":"Tuần trước tôi đi công tác.","ex_ja":"先週、私は出張しました。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":9,"vi":"vé","ja":"チケット","ex_vi":"Tôi mua vé máy bay.","ex_ja":"私は飛行機のチケットを買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":9,"vi":"xong","ja":"終わる","ex_vi":"Tôi làm việc xong rồi.","ex_ja":"私は仕事を終えました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"anh/anh trai","ja":"兄","ex_vi":"Anh trai tôi là bác sĩ.","ex_ja":"私の兄は医者です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"bà ngoại","ja":"母方の祖母","ex_vi":"Bà ngoại tôi sống ở quê.","ex_ja":"私の祖母は田舎に住んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"bàn ăn","ja":"食卓","ex_vi":"Gia đình tôi ngồi ở bàn ăn.","ex_ja":"私の家族は食卓に座っています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"bận","ja":"忙しい","ex_vi":"Anh trai tôi rất bận.","ex_ja":"私の兄はとても忙しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":10,"vi":"chị/chị gái","ja":"姉","ex_vi":"Chị gái tôi là giáo viên.","ex_ja":"私の姉は教師です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"chị cả","ja":"一番上の姉","ex_vi":"Chị cả tôi đã kết hôn.","ex_ja":"私の一番上の姉は結婚しています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"chồng","ja":"夫","ex_vi":"Chồng tôi làm việc ở công ty.","ex_ja":"私の夫は会社で働いています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"con cả","ja":"長子","ex_vi":"Tôi là con cả trong gia đình.","ex_ja":"私は家族の長子です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"con một","ja":"一人っ子","ex_vi":"Tôi là con một.","ex_ja":"私は一人っ子です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"con gái","ja":"娘","ex_vi":"Tôi có một con gái.","ex_ja":"私には娘が一人います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"con trai","ja":"息子","ex_vi":"Con trai tôi học lớp 5.","ex_ja":"私の息子は5年生です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"còn","ja":"まだ、そして","ex_vi":"Tôi còn trẻ.","ex_ja":"私はまだ若いです。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":10,"vi":"cùng","ja":"一緒に","ex_vi":"Chúng tôi sống cùng nhà.","ex_ja":"私たちは同じ家に住んでいます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":10,"vi":"điện thoại","ja":"電話","ex_vi":"Tôi gọi điện thoại cho mẹ.","ex_ja":"私は母に電話をかけます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"đói","ja":"お腹が空いた","ex_vi":"Tôi đói rồi.","ex_ja":"私はもうお腹が空きました。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":10,"vi":"độc thân","ja":"未婚の","ex_vi":"Anh trai tôi còn độc thân.","ex_ja":"私の兄はまだ未婚です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":10,"vi":"em gái","ja":"妹","ex_vi":"Em gái tôi học đại học.","ex_ja":"私の妹は大学に通っています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"em trai","ja":"弟","ex_vi":"Em trai tôi rất chăm chỉ.","ex_ja":"私の弟はとても勤勉です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"giúp","ja":"助ける","ex_vi":"Tôi giúp mẹ nấu ăn.","ex_ja":"私は母が料理するのを手伝います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"họ hàng","ja":"親戚","ex_vi":"Họ hàng tôi sống ở quê.","ex_ja":"私の親戚は田舎に住んでいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"hoa","ja":"花","ex_vi":"Tôi mua hoa cho mẹ.","ex_ja":"私は母に花を買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"kết hôn/lập gia đình","ja":"結婚する","ex_vi":"Chị tôi kết hôn năm ngoái.","ex_ja":"私の姉は去年結婚しました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"khá","ja":"かなり","ex_vi":"Tiếng Việt của tôi khá tốt.","ex_ja":"私のベトナム語はかなり良いです。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":10,"vi":"lớn hơn","ja":"年上の","ex_vi":"Anh trai tôi lớn hơn tôi 3 tuổi.","ex_ja":"私の兄は私より3歳年上です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":10,"vi":"mất","ja":"亡くなる","ex_vi":"Ông tôi đã mất.","ex_ja":"私の祖父は亡くなりました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"ngày nghỉ","ja":"休日","ex_vi":"Hôm nay là ngày nghỉ của tôi.","ex_ja":"今日は私の休日です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"nghỉ","ja":"休む","ex_vi":"Tôi muốn nghỉ một chút.","ex_ja":"私は少し休みたいです。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"nhỏ hơn","ja":"年下の","ex_vi":"Em gái tôi nhỏ hơn tôi 2 tuổi.","ex_ja":"私の妹は私より2歳年下です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":10,"vi":"quê","ja":"故郷","ex_vi":"Quê tôi ở miền Trung.","ex_ja":"私の故郷は中部地方です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"sớm","ja":"早い","ex_vi":"Tôi dậy sớm mỗi ngày.","ex_ja":"私は毎日早く起きます。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":10,"vi":"thành viên","ja":"メンバー","ex_vi":"Gia đình tôi có 5 thành viên.","ex_ja":"私の家族は5人のメンバーです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"thứ hai","ja":"二番目","ex_vi":"Tôi là con thứ hai.","ex_ja":"私は2番目の子供です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":10,"vi":"tranh","ja":"絵、絵画","ex_vi":"Tôi thích vẽ tranh.","ex_ja":"私は絵を描くのが好きです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"tuy nhiên","ja":"しかしながら","ex_vi":"Tôi bận, tuy nhiên tôi sẽ giúp bạn.","ex_ja":"忙しいですが、それでも手伝います。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":10,"vi":"út","ja":"末っ子","ex_vi":"Em trai tôi là con út.","ex_ja":"私の弟は末っ子です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":10,"vi":"vẫn","ja":"まだ、依然として","ex_vi":"Ông tôi vẫn khỏe.","ex_ja":"私の祖父はまだ元気です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":10,"vi":"vẽ","ja":"描く","ex_vi":"Tôi vẽ tranh mỗi ngày.","ex_ja":"私は毎日絵を描きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"về nhà","ja":"家に帰る","ex_vi":"Tôi về nhà lúc 6 giờ.","ex_ja":"私は6時に家に帰ります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"về hưu/nghỉ hưu","ja":"退職する","ex_vi":"Bố tôi đã về hưu.","ex_ja":"私の父は退職しました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":10,"vi":"vợ","ja":"妻","ex_vi":"Vợ tôi là bác sĩ.","ex_ja":"私の妻は医者です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"bằng","ja":"〜で","ex_vi":"Tôi đi làm bằng xe máy.","ex_ja":"私はバイクで仕事に行きます。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":11,"vi":"bất tiện","ja":"不便な","ex_vi":"Không có xe máy rất bất tiện.","ex_ja":"バイクがないと不便です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"cẩn thận","ja":"気をつける、慎重な","ex_vi":"Bạn hãy cẩn thận khi lái xe.","ex_ja":"運転する時は気をつけてください。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"chắc là","ja":"たぶん","ex_vi":"Chắc là anh ấy đến muộn.","ex_ja":"彼はたぶん遅れるでしょう。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":11,"vi":"chậm","ja":"遅い","ex_vi":"Xe buýt đi chậm quá.","ex_ja":"バスは遅すぎます。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"chở","ja":"乗せて行く","ex_vi":"Anh ấy chở tôi đi làm.","ex_ja":"彼は私を仕事まで乗せて行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":11,"vi":"điện","ja":"電気の","ex_vi":"Xe đạp điện rất tiện lợi.","ex_ja":"電動自転車はとても便利です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"đối với","ja":"〜に対して","ex_vi":"Đối với tôi, việc này rất khó.","ex_ja":"私にとって、これはとても難しいです。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":11,"vi":"đúng giờ","ja":"時間通りの","ex_vi":"Xe buýt đến đúng giờ.","ex_ja":"バスは時間通りに来ました。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"ga","ja":"駅","ex_vi":"Ga xe lửa ở gần đây.","ex_ja":"電車の駅はこの近くです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"ghé","ja":"立ち寄る","ex_vi":"Tôi ghé qua chợ mua rau.","ex_ja":"私は市場に立ち寄って野菜を買います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":11,"vi":"ghế","ja":"椅子","ex_vi":"Đây là ghế của tôi.","ex_ja":"これは私の椅子です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"giao thông","ja":"交通","ex_vi":"Giao thông ở đây rất phức tạp.","ex_ja":"ここの交通はとても複雑です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"hư","ja":"壊れた","ex_vi":"Xe máy của tôi bị hư.","ex_ja":"私のバイクは壊れています。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"kẹt xe","ja":"交通渋滞","ex_vi":"Hôm nay kẹt xe quá.","ex_ja":"今日は交通渋滞がひどいです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"(vé) khứ hồi","ja":"往復（チケット）","ex_vi":"Tôi mua vé khứ hồi.","ex_ja":"私は往復チケットを買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"lái","ja":"運転する","ex_vi":"Tôi lái xe đi làm.","ex_ja":"私は車を運転して仕事に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":11,"vi":"lần","ja":"回","ex_vi":"Tôi đi Việt Nam hai lần.","ex_ja":"私はベトナムに2回行きました。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"(vé) một chiều","ja":"片道（チケット）","ex_vi":"Tôi mua vé một chiều.","ex_ja":"私は片道チケットを買います。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"mưa","ja":"雨","ex_vi":"Hôm nay trời mưa.","ex_ja":"今日は雨が降っています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"nguy hiểm","ja":"危険な","ex_vi":"Lái xe nhanh rất nguy hiểm.","ex_ja":"速く運転するのは危険です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"người nước ngoài","ja":"外国人","ex_vi":"Có nhiều người nước ngoài ở đây.","ex_ja":"ここには多くの外国人がいます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"phần trăm","ja":"パーセント","ex_vi":"Giảm giá 20 phần trăm.","ex_ja":"20パーセント割引です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"phương tiện","ja":"手段、乗り物","ex_vi":"Xe máy là phương tiện phổ biến.","ex_ja":"バイクは一般的な交通手段です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"thân thiện","ja":"親切な","ex_vi":"Người Việt Nam rất thân thiện.","ex_ja":"ベトナム人はとても親切です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"thuê","ja":"借りる、雇う","ex_vi":"Tôi thuê xe máy để đi chơi.","ex_ja":"私は遊びに行くためにバイクを借ります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":11,"vi":"tiện/tiện lợi","ja":"便利な","ex_vi":"Xe buýt rất tiện lợi.","ex_ja":"バスはとても便利です。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":11,"vi":"trạm","ja":"停留所","ex_vi":"Trạm xe buýt ở gần đây.","ex_ja":"バス停はこの近くです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"tàu","ja":"船","ex_vi":"Chúng tôi đi tàu ra đảo.","ex_ja":"私たちは船で島に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe đạp","ja":"自転車","ex_vi":"Tôi đi học bằng xe đạp.","ex_ja":"私は自転車で学校に行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe đạp điện","ja":"電動自転車","ex_vi":"Em tôi đi xe đạp điện.","ex_ja":"私の弟は電動自転車に乗ります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe điện ngầm","ja":"地下鉄","ex_vi":"Ở Nhật có xe điện ngầm.","ex_ja":"日本には地下鉄があります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe hơi","ja":"車","ex_vi":"Anh ấy có một chiếc xe hơi mới.","ex_ja":"彼は新しい車を持っています。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe khách","ja":"長距離バス","ex_vi":"Tôi đi xe khách về quê.","ex_ja":"私は長距離バスで故郷に帰ります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe lửa","ja":"電車、汽車","ex_vi":"Tôi đi Huế bằng xe lửa.","ex_ja":"私は電車でフエに行きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe máy","ja":"オートバイ","ex_vi":"Ở Việt Nam có nhiều xe máy.","ex_ja":"ベトナムには多くのオートバイがあります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":11,"vi":"xe ôm","ja":"バイクタクシー","ex_vi":"Tôi đi xe ôm về nhà.","ex_ja":"私はバイクタクシーで家に帰ります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"bao xa","ja":"どのくらい遠い","ex_vi":"Từ đây đến đó bao xa?","ex_ja":"ここからそこまでどのくらい遠いですか？","pos_vi":"Từ để hỏi","pos_ja":"疑問詞"},{"lesson":12,"vi":"báo","ja":"新聞","ex_vi":"Tôi đọc báo mỗi sáng.","ex_ja":"私は毎朝新聞を読みます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"buồn","ja":"悲しい","ex_vi":"Tôi rất buồn.","ex_ja":"私はとても悲しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":12,"vi":"cây số","ja":"キロメートル","ex_vi":"Nhà tôi cách đây 5 cây số.","ex_ja":"私の家はここから5キロです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"công viên","ja":"公園","ex_vi":"Tôi đi bộ trong công viên.","ex_ja":"私は公園を歩きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"chào tạm biệt","ja":"さようなら","ex_vi":"Chào tạm biệt, hẹn gặp lại!","ex_ja":"さようなら、また会いましょう！","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":12,"vi":"chúc","ja":"祝う、願う","ex_vi":"Tôi chúc bạn hạnh phúc.","ex_ja":"私はあなたの幸せを願います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"dịp","ja":"機会","ex_vi":"Đây là dịp tốt để học tiếng Việt.","ex_ja":"これはベトナム語を学ぶ良い機会です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"dừng","ja":"止まる","ex_vi":"Xe buýt dừng ở đây.","ex_ja":"バスはここで止まります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"đạp xe","ja":"自転車に乗る","ex_vi":"Tôi đạp xe đi học.","ex_ja":"私は自転車で学校に行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"đi bộ","ja":"歩く","ex_vi":"Tôi đi bộ đến công ty.","ex_ja":"私は会社まで歩いて行きます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"đóng cửa","ja":"閉店する","ex_vi":"Cửa hàng đóng cửa lúc 9 giờ.","ex_ja":"店は9時に閉まります。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"hàng ngày","ja":"毎日","ex_vi":"Tôi tập thể dục hàng ngày.","ex_ja":"私は毎日運動します。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":12,"vi":"hình","ja":"写真、絵","ex_vi":"Đây là hình của gia đình tôi.","ex_ja":"これは私の家族の写真です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"học sinh","ja":"生徒","ex_vi":"Em ấy là học sinh lớp 5.","ex_ja":"彼は5年生の生徒です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"hơn","ja":"〜より多い","ex_vi":"Tôi lớn hơn bạn.","ex_ja":"私はあなたより年上です。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":12,"vi":"khả năng","ja":"能力","ex_vi":"Bạn có khả năng học ngoại ngữ tốt.","ex_ja":"あなたは外国語を学ぶ能力があります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"khách sạn","ja":"ホテル","ex_vi":"Chúng tôi ở khách sạn này.","ex_ja":"私たちはこのホテルに泊まります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"khỏe mạnh","ja":"健康な","ex_vi":"Tôi mong bạn luôn khỏe mạnh.","ex_ja":"いつも健康であることを願っています。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":12,"vi":"kịp","ja":"間に合う","ex_vi":"Tôi đến kịp giờ.","ex_ja":"私は時間に間に合いました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"mong","ja":"願う、期待する","ex_vi":"Tôi mong gặp lại bạn.","ex_ja":"またお会いできることを願っています。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"nghĩ","ja":"考える、思う","ex_vi":"Tôi nghĩ điều này đúng.","ex_ja":"私はこれが正しいと思います。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"nghỉ hè","ja":"夏休み","ex_vi":"Nghỉ hè tôi về quê.","ex_ja":"夏休み、私は故郷に帰ります。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"nhận","ja":"受け取る","ex_vi":"Tôi nhận được thư của bạn.","ex_ja":"私はあなたの手紙を受け取りました。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"như","ja":"〜のように","ex_vi":"Bạn nói tiếng Việt như người Việt.","ex_ja":"あなたはベトナム人のようにベトナム語を話します。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":12,"vi":"sinh hoạt","ja":"生活、活動","ex_vi":"Sinh hoạt hàng ngày của tôi rất đơn giản.","ex_ja":"私の日常生活はとても簡単です。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"thư","ja":"手紙","ex_vi":"Tôi viết thư cho bạn.","ex_ja":"私はあなたに手紙を書きます。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"thư viện","ja":"図書館","ex_vi":"Tôi học ở thư viện.","ex_ja":"私は図書館で勉強します。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"trả lời","ja":"答える","ex_vi":"Tôi trả lời câu hỏi.","ex_ja":"私は質問に答えます。","pos_vi":"Động từ","pos_ja":"動詞"},{"lesson":12,"vi":"trái cây","ja":"果物","ex_vi":"Tôi thích ăn trái cây.","ex_ja":"私は果物を食べるのが好きです。","pos_vi":"Danh từ","pos_ja":"名詞"},{"lesson":12,"vi":"vui vẻ","ja":"楽しい","ex_vi":"Chúng tôi rất vui vẻ.","ex_ja":"私たちはとても楽しいです。","pos_vi":"Tính từ","pos_ja":"形容詞"},{"lesson":12,"vi":"vừa rồi","ja":"先ほど","ex_vi":"Vừa rồi tôi gặp anh ấy.","ex_ja":"先ほど彼に会いました。","pos_vi":"Từ loại khác","pos_ja":"その他"},{"lesson":12,"vi":"yên tĩnh","ja":"静かな","ex_vi":"Thư viện rất yên tĩnh.","ex_ja":"図書館はとても静かです。","pos_vi":"Tính từ","pos_ja":"形容詞"}];
+
 const firebaseConfig = {
   apiKey: "AIzaSyAfy4QMD9_7PyFHpInNdKDRWuW4AYCtLJ4",
   authDomain: "history-e4633.firebaseapp.com",
@@ -2066,7 +2286,7 @@ async function doLogin() {
       lastLoginAt: firebase.firestore.FieldValue.serverTimestamp(),
     }, { merge: true });
     startSessionWatcher(uid, mySessionId);
-    go('dashboard');
+    go('section-select');
   } catch (e) {
     btn.disabled = false; btn.textContent = 'Đăng nhập';
     const map = {
@@ -2090,11 +2310,13 @@ function renderDashboard() {
   root.innerHTML = `
     ${brandHeader()}
     <div class="card">
+      <button class="btn btn-ghost" id="back-home" style="margin-bottom:16px;">← Trang chủ</button>
       <div class="pill-header">Chọn chương để luyện tập</div>
       <div class="unit-grid">${tiles}</div>
     </div>
     <footer class="app-footer">Đã đăng nhập: ${escapeHtml((auth.currentUser && auth.currentUser.email) || '')} · <a href="#" id="logout-link">Đăng xuất</a></footer>
   `;
+  document.getElementById('back-home').addEventListener('click', () => go('section-select'));
   root.querySelectorAll('.unit-tile[data-ch]').forEach(el => {
     el.addEventListener('click', () => startTest(parseInt(el.dataset.ch)));
   });
@@ -2222,12 +2444,556 @@ function renderResult() {
   document.getElementById('btn-home').addEventListener('click', () => go('dashboard'));
 }
 
+/* ---------- Trang trí SVG (vẽ tay theo ảnh mẫu, không dùng ảnh ngoài) ---------- */
+function fcSakura(cx, cy, r, rot) {
+  const petal = 'M0 0 C-.44 -.12 -.54 -.66 -.27 -.94 C-.19 -1.02 -.08 -.97 0 -.85 C.08 -.97 .19 -1.02 .27 -.94 C.54 -.66 .44 -.12 0 0Z';
+  let g = `<g transform="translate(${cx} ${cy}) rotate(${rot}) scale(${r})">`;
+  for (let i = 0; i < 5; i++) {
+    g += `<g transform="rotate(${i * 72})">
+      <path d="${petal}" fill="#FBA3A8"/>
+      <path d="${petal}" transform="scale(.7)" fill="#FDBABD" opacity=".55"/>
+      <path d="M0 -.12 L0 -.6" stroke="#F3858E" stroke-width=".03" stroke-linecap="round" opacity=".5"/>
+    </g>`;
+  }
+  for (let i = 0; i < 5; i++) {
+    const a = (36 + i * 72) * Math.PI / 180, x = Math.sin(a) * .3, y = -Math.cos(a) * .3;
+    g += `<line x1="0" y1="0" x2="${x.toFixed(3)}" y2="${y.toFixed(3)}" stroke="#FFF3EA" stroke-width=".055" stroke-linecap="round"/>
+          <circle cx="${x.toFixed(3)}" cy="${y.toFixed(3)}" r=".05" fill="#FFF3EA"/>`;
+  }
+  return g + '<circle r=".09" fill="#FFF6EF"/></g>';
+}
+function fcLoosePetal(cx, cy, rx, ry, rot, fill) {
+  return `<path transform="translate(${cx} ${cy}) rotate(${rot}) scale(${rx} ${ry})" d="M0 -1 C.62 -.9 .7 .55 0 1 C-.7 .55 -.62 -.9 0 -1Z" fill="${fill || '#FBB0B4'}"/>`;
+}
+const cq = (px) => (px / 1196 * 100).toFixed(2) + 'cqw';
+const cqi = (px) => cq(Math.max(0, px - 7)); // tính từ mép trong của viền 7px
+
+const FC_DECOR_PINK = `
+  <svg class="fc-d" viewBox="0 0 220 160" style="left:${cqi(20)};bottom:${cqi(20)};width:${cq(220)}" aria-hidden="true">
+    ${fcLoosePetal(23, 14, 8, 13, 18)}
+    ${fcSakura(51, 76, 40, -8)}
+    ${fcSakura(116, 126, 28, 22)}
+    ${fcLoosePetal(61, 141, 9, 6, -16, '#FBBABD')}
+    ${fcLoosePetal(176, 137, 10, 6, -34)}
+  </svg>
+  <svg class="fc-d" viewBox="0 0 150 140" style="right:${cqi(16)};bottom:${cqi(20)};width:${cq(150)}" aria-hidden="true">
+    ${fcLoosePetal(122, 21, 9, 13, 10)}
+    ${fcSakura(97, 84, 40, -12)}
+    ${fcLoosePetal(30, 117, 14, 9, -22, '#FBB6B9')}
+  </svg>`;
+
+const FC_RAYS_L = `<svg class="fc-rays fc-rays--l" viewBox="0 0 44 76" aria-hidden="true">
+  <g stroke="#FA9EA5" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M22 5 L40 19"/><path d="M4 37 L36 39"/><path d="M22 70 L40 56"/></g></svg>`;
+const FC_RAYS_R = `<svg class="fc-rays fc-rays--r" viewBox="0 0 44 76" aria-hidden="true" style="transform:translateY(-50%) scaleX(-1)">
+  <g stroke="#FA9EA5" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M22 5 L40 19"/><path d="M4 37 L36 39"/><path d="M22 70 L40 56"/></g></svg>`;
+const FC_BRUSH = `<svg class="fc-brush" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M16 20 C44 8 96 15 158 11 C232 7 304 15 372 9 C394 12 398 30 392 46 C399 63 393 85 372 89 C302 95 222 86 152 92 C92 97 42 91 20 85 C6 77 11 58 6 46 C3 34 8 27 16 20Z" fill="#FCE7E8"/></svg>`;
+
+const FC_DECOR_BLUE = `
+  <svg class="fc-d" viewBox="0 0 130 110" style="left:${cqi(28)};top:${cqi(20)};width:${cq(130)}" aria-hidden="true">
+    <g transform="translate(46 54) rotate(41)">
+      <rect x="-14" y="-60" width="28" height="13" rx="6" fill="#F8BE55"/>
+      <rect x="-14" y="-49" width="28" height="9" fill="#9CC6EE"/>
+      <rect x="-14" y="-40" width="28" height="70" fill="#418CCE"/>
+      <rect x="-14" y="-40" width="10" height="70" fill="#5FA4E2"/>
+      <rect x="6" y="-40" width="8" height="70" fill="#3378BC"/>
+      <path d="M0 -40 L0 30" stroke="#2F6DB0" stroke-width="1.6" opacity=".7"/>
+      <path d="M-14 30 L-7 35 L0 29 L7 35 L14 30 L0 60Z" fill="#FDD277"/>
+      <path d="M-4.6 50 L4.6 50 L0 60Z" fill="#0F2C69"/>
+    </g>
+    <g stroke="#F9CB5A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M102 42 L110 49 L123 33"/><path d="M97 58 L106 65"/><path d="M87 69 L92 82"/></g>
+  </svg>
+  <svg class="fc-d" viewBox="0 0 80 80" style="right:${cqi(50)};top:${cqi(70)};width:${cq(80)}" aria-hidden="true">
+    <g stroke="#5B9FE3" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M9 37 L21 8"/><path d="M29 50 L53 24"/><path d="M41 73 L68 64"/></g>
+  </svg>
+  <svg class="fc-d" viewBox="0 0 236 96" style="left:${cqi(22)};bottom:${cqi(20)};width:${cq(236)}" aria-hidden="true">
+    <path d="M30 92 C38 66 48 44 62 22" stroke="#7DA675" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    <g fill="#8EB786">
+      <path transform="translate(39 49) rotate(-47)" d="M0 0 C10 -17 40 -17 54 0 C40 17 10 17 0 0Z"/>
+      <path transform="translate(29 75) rotate(-113)" d="M0 0 C9 -14 36 -14 50 0 C36 14 9 14 0 0Z"/>
+      <path transform="translate(33 82) rotate(-26)" d="M0 0 C10 -15 40 -15 55 0 C40 15 10 15 0 0Z"/>
+    </g>
+    <g stroke="#6E9C69" stroke-width="1.8" stroke-linecap="round" fill="none">
+      <path transform="translate(39 49) rotate(-47)" d="M4 0 L46 0"/>
+      <path transform="translate(29 75) rotate(-113)" d="M4 0 L42 0"/>
+      <path transform="translate(33 82) rotate(-26)" d="M4 0 L46 0"/>
+    </g>
+    <path d="M81 85 C100 71 118 68 134 74 S168 92 190 88 S214 80 224 74" stroke="#A5CBF1" stroke-width="8" stroke-linecap="round" fill="none"/>
+  </svg>
+  <svg class="fc-d" viewBox="0 0 880 625" style="right:${cqi(14)};bottom:${cqi(8)};width:${cq(176)}" aria-hidden="true">
+    <!-- sách vàng (dưới) -->
+    <path d="M95 310 L190 272 L800 283 L812 300 L485 412 L90 322Z" fill="#FDC95F"/>
+    <path d="M52 362 C50 336 70 313 96 309 L484 418 L492 556 L122 463 C80 452 54 420 52 362Z" fill="#FDBF4E"/>
+    <path d="M118 342 L124 452" stroke="#F4AC38" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M418 412 L426 528" stroke="#F4AC38" stroke-width="6" stroke-linecap="round" fill="none" opacity=".7"/>
+    <path d="M478 432 L795 314 L802 402 L488 534Z" fill="#FFFDF8"/>
+    <path d="M790 312 L815 300 L815 425 L800 420Z" fill="#F7DDB2"/>
+    <path d="M492 545 L806 420" stroke="#FCBE49" stroke-width="22" stroke-linecap="round" fill="none"/>
+    <path d="M96 309 L484 418" stroke="#F9B443" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <!-- sách xanh (trên) -->
+    <path d="M218 164 C220 156 232 150 246 145 L492 66 C500 62 512 62 520 64 L792 138 C806 143 806 156 796 160 L494 266Z" fill="#6FA8E2"/>
+    <path d="M186 196 C182 178 198 170 214 166 L492 264 L482 386 L262 302 C206 282 188 250 186 196Z" fill="#5C9CE1"/>
+    <path d="M232 192 L238 284" stroke="#4A8AD6" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M214 166 L492 264 L800 152" stroke="#4E8EDB" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M492 274 L788 178 L795 268 L498 368Z" fill="#FFFFFF"/>
+    <path d="M772 182 L788 176 L795 266 L780 268Z" fill="#DCEAF8"/>
+    <path d="M486 380 L806 268" stroke="#4C8DDA" stroke-width="18" stroke-linecap="round" fill="none"/>
+  </svg>`;
+
+
+/* ============================================================
+   FLASHCARD TU VUNG VLS -- du lieu va logic (cong theo mau
+   kimoanh.tiengnhat, kieu the "sv" nhu Flashcard Shinkanzen TV N3)
+   ============================================================ */
+function fcShuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+const FC_SETS = {
+  vls: {
+    name: 'Flashcard từ vựng VLS', unit: 'Bài', item: 'từ', key: 'lesson', cards: () => VLS_CARDS,
+    sv: true, front: fcFrontVls, back: fcBackVls, fit: fcFitSv,
+    aria: (c) => 'Thẻ từ vựng ' + c.vi + '. Nhấn để lật thẻ',
+    desc: 'Mặt trước: từ tiếng Việt. Mặt sau: nghĩa tiếng Nhật, câu ví dụ và từ loại. Chạm vào thẻ để lật.',
+  },
+};
+function fcSet() { return FC_SETS[state.fcSet] || FC_SETS.vls; }
+
+/* ---------- Mat the: truoc = tu Viet, sau = nghia Nhat + vi du + tu loai ---------- */
+function fcSvTitleScale(w) {
+  const n = [...w].length;
+  if (n <= 4) return 11;
+  if (n <= 8) return 9;
+  if (n <= 14) return 7;
+  if (n <= 20) return 5.8;
+  return 4.8;
+}
+function fcFrontVls(c) {
+  return `
+    <div class="fc-face fc-face--pink">
+      ${FC_DECOR_PINK}
+      <div class="fc-title fc-title--word" style="--w:${fcSvTitleScale(c.vi)}">${FC_BRUSH}${FC_RAYS_L}${FC_RAYS_R}
+        <span class="fc-hv">${escapeHtml(c.vi)}</span></div>
+    </div>`;
+}
+function fcBackVls(c) {
+  return `
+    <div class="fc-face fc-face--blue">
+      ${FC_DECOR_BLUE}
+      <div class="fc-sv-back">
+        <svg class="fc-dash" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" rx="26"/></svg>
+        <div class="fc-sv-in">
+          <div class="fc-row"><span class="fc-lab">Nghĩa:</span><span class="fc-sv-val fc-kana">${escapeHtml(c.ja)}</span></div>
+          <div class="fc-row"><span class="fc-lab">Ví dụ:</span><span class="fc-sv-val"><span class="fc-sv-vi">${escapeHtml(c.ex_vi)}</span><span class="fc-kana fc-sv-jp">${escapeHtml(c.ex_ja)}</span></span></div>
+          <div class="fc-row"><span class="fc-lab">Từ loại:</span><span class="fc-sv-val"><span class="fc-sv-vi">${escapeHtml(c.pos_vi)}</span><span class="fc-kana fc-sv-jp">${escapeHtml(c.pos_ja)}</span></span></div>
+        </div>
+      </div>
+    </div>`;
+}
+/* Tu thu nho chu cho vua khung the (dung chung cho moi bo the kieu "sv") */
+function fcFitSv(card) {
+  const face = card.querySelector('.fc-face--pink'), t = card.querySelector('.fc-title--word');
+  if (face && t) {
+    let w = parseFloat(t.style.getPropertyValue('--w')) || 11, guard = 40;
+    const over = () => t.offsetWidth + parseFloat(getComputedStyle(t).fontSize) * 1.55 > face.clientWidth * 0.93;
+    while (over() && w > 2.5 && guard--) { w -= 0.35; t.style.setProperty('--w', w.toFixed(2)); }
+  }
+  const box = card.querySelector('.fc-sv-back'), inn = card.querySelector('.fc-sv-in');
+  if (box && inn) {
+    const cs = getComputedStyle(box);
+    const avail = () => box.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    let s = card.clientWidth <= 540 ? 5.5 : 3.9, guard = 80;
+    box.style.setProperty('--s', s);
+    while (inn.offsetHeight > avail() && s > 1.6 && guard--) { s -= 0.1; box.style.setProperty('--s', s.toFixed(2)); }
+  }
+}
+
+/* ---------- Chon bai ---------- */
+function fcChapterList(setId) {
+  const S = FC_SETS[setId || state.fcSet] || FC_SETS.vls;
+  const map = new Map();
+  S.cards().forEach((c, i) => {
+    if (!map.has(c[S.key])) map.set(c[S.key], []);
+    map.get(c[S.key]).push(i);
+  });
+  return [...map.entries()].sort((a, b) => a[0] - b[0]);
+}
+
+function renderFlashDashboard() {
+  const S = fcSet(), CARDS = S.cards(), unitLc = S.unit.toLowerCase();
+  if (!state.fcMode) state.fcMode = 'study';
+  const mode = state.fcMode;
+  const chapters = fcChapterList();
+  const tiles = chapters.map(([ch, idxs]) => `
+    <button class="unit-tile" data-fc-ch="${ch}">
+      <div class="u-num">${ch}</div>
+      <div class="u-name">${S.unit} ${ch}</div>
+      <div class="u-range">${S.tile ? escapeHtml(S.tile(ch, idxs, CARDS)) : idxs.length + ' từ'}</div>
+    </button>`).join('');
+  const desc = mode === 'quiz'
+    ? `Chọn ${unitLc} để làm bài luyện tập trắc nghiệm — mỗi câu lấy dữ liệu trực tiếp từ các thẻ trong ${unitLc} đó, đảm bảo chính xác 100%.`
+    : (S.desc || 'Chạm vào thẻ để lật.');
+  root.innerHTML = `
+    ${brandHeader()}
+    <div class="card">
+      <button class="btn btn-ghost" id="back-home" style="margin-bottom:16px;">← Trang chủ</button>
+      <div class="pill-header">${S.name} — chọn ${unitLc}</div>
+      <div style="display:flex; gap:10px; margin:-4px 0 14px;">
+        <button class="btn ${mode === 'study' ? 'btn-primary' : 'btn-ghost'}" data-mode="study">📖 Học Flashcard</button>
+        <button class="btn ${mode === 'quiz' ? 'btn-primary' : 'btn-ghost'}" data-mode="quiz">📝 Luyện tập</button>
+      </div>
+      <p style="color:var(--navy-deep); margin-top:-6px; font-size:0.88rem;">
+        ${desc}
+      </p>
+      <div class="unit-grid">
+        <button class="unit-tile" data-fc-ch="all" style="border-color:var(--orange);">
+          <div class="u-num">全</div>
+          <div class="u-name">Tất cả</div>
+          <div class="u-range">${CARDS.length} ${S.item || 'từ'} · ${chapters.length} ${unitLc}</div>
+        </button>
+        ${tiles}
+      </div>
+    </div>
+    <footer class="app-footer">Đã đăng nhập: ${escapeHtml((auth.currentUser && auth.currentUser.email) || '')} · <a href="#" id="logout-link">Đăng xuất</a></footer>
+  `;
+  document.getElementById('back-home').addEventListener('click', () => go('section-select'));
+  root.querySelectorAll('[data-mode]').forEach(el => {
+    el.addEventListener('click', () => { state.fcMode = el.dataset.mode; renderFlashDashboard(); });
+  });
+  root.querySelectorAll('[data-fc-ch]').forEach(el => {
+    el.addEventListener('click', () => {
+      if (state.fcMode === 'quiz') startFlashQuiz(el.dataset.fcCh); else startFlash(el.dataset.fcCh);
+    });
+  });
+  document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); forceLogout(''); });
+}
+
+/* ---------- Hoc flashcard ---------- */
+function startFlash(chapter) {
+  const deck = [];
+  const S = fcSet();
+  S.cards().forEach((c, i) => { if (chapter === 'all' || String(c[S.key]) === String(chapter)) deck.push(i); });
+  go('flash-study', { fc: { chapter, deck, i: 0, startBack: false, shuffled: false } });
+}
+
+function renderFlashStudy() {
+  const f = state.fc;
+  root.innerHTML = `
+    ${brandHeader()}
+    <div class="card fc-panel">
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="fc-bar"></div></div>
+        <div class="progress-label" id="fc-count"></div>
+      </div>
+      <div class="fc-wrap"><div class="fc-stage">
+        <div class="fc-card" id="fc-card" role="button" tabindex="0" aria-label="Thẻ từ vựng. Nhấn để lật thẻ">
+        </div>
+      </div></div>
+      <div class="fc-hint">Chạm vào thẻ để lật<span class="fc-kbd"> · phím ← → đổi thẻ, Space để lật</span></div>
+      <div class="quiz-nav" style="margin-top:14px;">
+        <button class="btn btn-ghost" id="fc-prev">← Thẻ trước</button>
+        <button class="btn btn-primary" id="fc-next">Thẻ tiếp →</button>
+      </div>
+      <div class="fc-tools">
+        <button class="btn btn-ghost" id="fc-shuffle" aria-pressed="false">Xáo trộn</button>
+        <button class="btn btn-ghost" id="fc-swap" aria-pressed="false">Hiện mặt xanh trước</button>
+        <button class="btn btn-primary" id="fc-quiz">📝 Luyện tập</button>
+        <button class="btn btn-ghost" id="fc-list">Về danh sách ${fcSet().unit.toLowerCase()}</button>
+      </div>
+    </div>
+  `;
+  const card = document.getElementById('fc-card');
+  card.addEventListener('click', fcFlip);
+  document.getElementById('fc-prev').addEventListener('click', () => fcMove(-1));
+  document.getElementById('fc-next').addEventListener('click', () => fcMove(1));
+  document.getElementById('fc-list').addEventListener('click', () => go('flash-dashboard'));
+  document.getElementById('fc-quiz').addEventListener('click', () => startFlashQuiz(f.chapter));
+  document.getElementById('fc-shuffle').addEventListener('click', () => {
+    f.shuffled = !f.shuffled;
+    if (f.shuffled) fcShuffle(f.deck); else f.deck.sort((a, b) => a - b);
+    f.i = 0; fcUpdate(true);
+  });
+  document.getElementById('fc-swap').addEventListener('click', () => {
+    f.startBack = !f.startBack; fcUpdate(true);
+  });
+  let sx = null;
+  card.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  card.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 55) { e.preventDefault(); fcMove(dx < 0 ? 1 : -1); }
+  });
+  fcUpdate(true);
+  fcBindKeys();
+}
+
+function fcFlip() {
+  const card = document.getElementById('fc-card');
+  if (card) card.classList.toggle('is-flipped');
+}
+function fcMove(step) {
+  const f = state.fc; if (!f) return;
+  const n = f.deck.length;
+  f.i = Math.min(n - 1, Math.max(0, f.i + step));
+  fcUpdate(true);
+}
+function fcUpdate(resetFlip) {
+  const f = state.fc, card = document.getElementById('fc-card');
+  if (!f || !card) return;
+  const S = fcSet(), c = S.cards()[f.deck[f.i]];
+  card.classList.toggle('fc-card--sv', !!S.sv);
+  if (resetFlip) {
+    card.classList.add('fc-noanim');
+    card.classList.toggle('is-flipped', f.startBack);
+  }
+  card.innerHTML = S.front(c) + S.back(c);
+  if (S.fit) S.fit(card);
+  if (resetFlip) { void card.offsetWidth; card.classList.remove('fc-noanim'); }
+  const total = f.deck.length;
+  document.getElementById('fc-bar').style.width = ((f.i + 1) / total * 100) + '%';
+  document.getElementById('fc-count').textContent =
+    (f.chapter === 'all' ? 'Tất cả' : fcSet().unit + ' ' + f.chapter) + ' · ' + (f.i + 1) + '/' + total;
+  document.getElementById('fc-prev').disabled = f.i === 0;
+  document.getElementById('fc-next').disabled = f.i === total - 1;
+  card.setAttribute('aria-label', S.aria ? S.aria(c) : 'Thẻ từ vựng. Nhấn để lật thẻ');
+  const shuf = document.getElementById('fc-shuffle'), swap = document.getElementById('fc-swap');
+  shuf.setAttribute('aria-pressed', String(f.shuffled)); shuf.textContent = f.shuffled ? 'Đúng thứ tự' : 'Xáo trộn';
+  swap.setAttribute('aria-pressed', String(f.startBack)); swap.textContent = f.startBack ? 'Hiện mặt hồng trước' : 'Hiện mặt xanh trước';
+}
+let fcKeysBound = false;
+function fcRefit() {
+  if (state.screen !== 'flash-study') return;
+  const S = fcSet(), card = document.getElementById('fc-card');
+  if (S.fit && card) S.fit(card);
+}
+function fcBindKeys() {
+  if (fcKeysBound) return;
+  fcKeysBound = true;
+  window.addEventListener('resize', fcRefit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fcRefit);
+  document.addEventListener('keydown', (e) => {
+    if (state.screen !== 'flash-study') return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); fcMove(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); fcMove(-1); }
+    else if ((e.key === ' ' || e.key === 'Enter') && document.activeElement && document.activeElement.id === 'fc-card') { e.preventDefault(); fcFlip(); }
+    else if (e.key === ' ' && !/^(BUTTON|INPUT|A)$/.test((document.activeElement || {}).tagName || '')) { e.preventDefault(); fcFlip(); }
+  });
+}
+
+/* ============================================================
+   LUYEN TAP flashcard VLS -- sinh cau hoi truc tiep tu VLS_CARDS,
+   2 chieu Viet->Nhat (V2J) va Nhat->Viet (J2V), loai nhieu theo
+   CA "vi" lan "ja" cua dap an dung de dam bao chi 1 dap an dung.
+   ============================================================ */
+function fcPickDistractorsBy(items, excludeFn, valueFn, n, extraItems) {
+  const seen = new Set();
+  const out = [];
+  for (const it of fcShuffle(items)) {
+    if (excludeFn(it)) continue;
+    const v = valueFn(it);
+    if (v && !seen.has(v)) { seen.add(v); out.push(v); if (out.length === n) break; }
+  }
+  if (out.length < n && extraItems) {
+    for (const it of fcShuffle(extraItems)) {
+      if (out.length === n) break;
+      if (excludeFn(it)) continue;
+      const v = valueFn(it);
+      if (v && !seen.has(v)) { seen.add(v); out.push(v); }
+    }
+  }
+  return out;
+}
+
+function fcVlsQuestions(idxs) {
+  const CARDS = VLS_CARDS;
+  const deck = idxs.map(i => CARDS[i]);
+  const qs = [];
+  deck.forEach(c => {
+    const order = fcShuffle(['V2J', 'J2V']);
+    for (const type of order) {
+      if (type === 'V2J') {
+        // nhieu la nghia tieng Nhat khac - loai ung vien trung "ja" HOAC trung "vi"
+        // voi dap an dung, tranh 2 tu khac nhau cung nghia hoac 1 tu co nhieu nghia.
+        const distractors = fcPickDistractorsBy(deck, it => it.ja === c.ja || it.vi === c.vi, it => it.ja, 3, CARDS);
+        if (distractors.length < 3) continue;
+        qs.push({ type: 'V2J', prompt: `"${c.vi}" tiếng Nhật là gì?`, options: fcShuffle([c.ja, ...distractors]), answer: c.ja });
+        break;
+      } else {
+        // nhieu la tu tieng Viet khac - loai ung vien trung "vi" HOAC trung "ja"
+        // voi dap an dung, cung ly do tren.
+        const distractors = fcPickDistractorsBy(deck, it => it.vi === c.vi || it.ja === c.ja, it => it.vi, 3, CARDS);
+        if (distractors.length < 3) continue;
+        qs.push({ type: 'J2V', prompt: `「${c.ja}」 nghĩa tiếng Việt là gì?`, options: fcShuffle([c.vi, ...distractors]), answer: c.vi });
+        break;
+      }
+    }
+  });
+  return qs;
+}
+
+function startFlashQuiz(chapter) {
+  const setId = state.fcSet || 'vls';
+  const S = FC_SETS[setId];
+  const idxs = [];
+  S.cards().forEach((c, i) => { if (chapter === 'all' || String(c[S.key]) === String(chapter)) idxs.push(i); });
+  let questions = fcVlsQuestions(idxs);
+  questions = fcShuffle(questions).map((q, i) => Object.assign({}, q, { q_num: i + 1 }));
+  go('flash-quiz', { fquiz: { setId, chapter, questions, index: 0, answers: {} } });
+}
+
+function renderFlashQuiz() {
+  const { questions, index, answers } = state.fquiz;
+  const total = questions.length;
+  if (!total) {
+    root.innerHTML = `
+      ${brandHeader()}
+      <div class="card" style="text-align:center;">
+        <p style="color:var(--navy-deep);">Nhóm này chưa có đủ dữ liệu để tạo câu luyện tập (cần ít nhất 4 thẻ khác nhau).</p>
+        <button class="btn btn-ghost" id="fc-quiz-back">← Về danh sách</button>
+      </div>`;
+    document.getElementById('fc-quiz-back').addEventListener('click', () => go('flash-dashboard'));
+    return;
+  }
+  const q = questions[index];
+  const selected = answers[q.q_num];
+  const answered = selected !== undefined;
+  const optionsHtml = q.options.map((opt, i) => {
+    const letter = String.fromCharCode(65 + i);
+    const isSel = selected === opt;
+    const jp = /[぀-ヿ一-鿿]/.test(opt) ? 'jp' : '';
+    let cls = isSel ? 'selected' : '';
+    if (answered) cls = opt === q.answer ? 'correct' : (isSel ? 'wrong' : '');
+    const mark = answered && opt === q.answer ? '<span class="opt-mark">✓</span>' : (answered && isSel ? '<span class="opt-mark">✗</span>' : '');
+    return `
+      <button class="option ${cls}" data-opt="${escapeAttr(opt)}" ${answered ? 'disabled' : ''}>
+        <span class="opt-letter">${letter}</span>
+        <span class="${jp}">${escapeHtml(opt)}</span>
+        ${mark}
+      </button>`;
+  }).join('');
+  const isLast = index === total - 1;
+  const kindLabel = q.type === 'J2V' ? 'Nhật → Việt' : 'Việt → Nhật';
+  const feedback = !answered ? '' : (selected === q.answer
+    ? `<div class="answer-feedback answer-feedback--ok">✓ Chính xác!</div>`
+    : `<div class="answer-feedback answer-feedback--bad">✗ Chưa đúng. Đáp án đúng: <b>${escapeHtml(q.answer)}</b></div>`);
+  root.innerHTML = `
+    ${brandHeader()}
+    <div class="card">
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" style="width:${(index / total) * 100}%"></div></div>
+        <div class="progress-label">Câu ${index + 1}/${total}</div>
+      </div>
+      <div class="q-number-badge">${q.q_num}</div>
+      <div style="font-size:0.78rem; color:var(--terracotta); font-weight:600; margin-bottom:6px;">${kindLabel}</div>
+      <div class="q-prompt">${formatPrompt(q)}</div>
+      <div class="option-list">${optionsHtml}</div>
+      ${feedback}
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="btn-prev" ${index === 0 ? 'disabled' : ''}>← Câu trước</button>
+        <button class="btn btn-primary" id="btn-next" ${answered ? '' : 'disabled'}>
+          ${isLast ? 'Nộp bài' : 'Câu tiếp →'}
+        </button>
+      </div>
+    </div>
+  `;
+  root.querySelectorAll('.option').forEach(el => {
+    el.addEventListener('click', () => {
+      if (state.fquiz.answers[q.q_num] !== undefined) return;
+      state.fquiz.answers[q.q_num] = el.dataset.opt; renderFlashQuiz();
+    });
+  });
+  document.getElementById('btn-prev').addEventListener('click', () => { state.fquiz.index = Math.max(0, index - 1); renderFlashQuiz(); });
+  document.getElementById('btn-next').addEventListener('click', () => {
+    if (isLast) submitFlashQuiz(); else { state.fquiz.index = index + 1; renderFlashQuiz(); }
+  });
+}
+
+function submitFlashQuiz() {
+  const { questions, answers, setId, chapter } = state.fquiz;
+  let correct = 0;
+  const detail = questions.map(q => {
+    const your = answers[q.q_num]; const ok = your === q.answer;
+    if (ok) correct++;
+    return Object.assign({}, q, { your, ok });
+  });
+  go('flash-quiz-result', { fquizResult: { correct, total: questions.length, detail, setId, chapter } });
+}
+
+function renderFlashQuizResult() {
+  const { correct, total, detail, setId, chapter } = state.fquizResult;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+  const S = FC_SETS[setId];
+  const items = detail.map(d => `
+    <div class="review-item ${d.ok ? 'correct' : 'wrong'}">
+      <div class="r-prompt">Câu ${d.q_num}: ${formatPrompt(d)}</div>
+      ${d.ok
+        ? `<div class="r-line correct-ans">✓ Bạn chọn đúng: ${escapeHtml(d.answer)}</div>`
+        : `<div class="r-line your">✗ Bạn chọn: ${escapeHtml(d.your || '(bỏ trống)')}</div>
+           <div class="r-line correct-ans">✓ Đáp án đúng: ${escapeHtml(d.answer)}</div>`}
+    </div>
+  `).join('');
+  root.innerHTML = `
+    ${brandHeader()}
+    <div class="card">
+      <div class="score-hero">
+        <div class="score-num">${correct}/${total}</div>
+        <div class="score-sub">${pct}% chính xác — Luyện tập ${S.name} ${chapter === 'all' ? '· Tất cả' : '· ' + S.unit + ' ' + chapter}</div>
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; margin-bottom:26px;">
+        <button class="btn btn-primary" id="btn-retry">Làm lại</button>
+        <button class="btn btn-ghost" id="btn-home">Về danh sách ${S.unit.toLowerCase()}</button>
+      </div>
+      <div class="pill-header">Xem lại đáp án</div>
+      ${items}
+    </div>
+  `;
+  document.getElementById('btn-retry').addEventListener('click', () => { state.fcSet = setId; startFlashQuiz(chapter); });
+  document.getElementById('btn-home').addEventListener('click', () => { state.fcSet = setId; state.fcMode = 'quiz'; go('flash-dashboard'); });
+}
+
+/* ---------------- Man hinh chon muc hoc (trang chu moi) ---------------- */
+function renderSectionSelect() {
+  root.innerHTML = `
+    ${brandHeader()}
+    <div class="card">
+      <div class="pill-header">Chọn mục học</div>
+      <div class="unit-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+        <button class="unit-tile" id="sec-quiz" style="text-align:left;">
+          <div class="u-num">語</div>
+          <div class="u-name">Luyện tập theo chương</div>
+          <div class="u-range">${TV_CHAPTERS_META.length} chương</div>
+        </button>
+        <button class="unit-tile" id="sec-flash-vls" style="text-align:left;">
+          <div class="u-num">札</div>
+          <div class="u-name">Flashcard từ vựng VLS</div>
+          <div class="u-range">${fcChapterList('vls').length} bài · ${VLS_CARDS.length} từ vựng</div>
+        </button>
+      </div>
+    </div>
+    <footer class="app-footer">Đã đăng nhập: ${escapeHtml((auth.currentUser && auth.currentUser.email) || '')} · <a href="#" id="logout-link">Đăng xuất</a></footer>
+  `;
+  document.getElementById('sec-quiz').addEventListener('click', () => go('dashboard'));
+  document.getElementById('sec-flash-vls').addEventListener('click', () => go('flash-dashboard', { fcSet: 'vls' }));
+  document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); forceLogout(''); });
+}
+
+
 /* ---------------- Dieu huong chinh ---------------- */
 function render() {
   if (state.screen === 'login') return renderLogin();
+  if (state.screen === 'section-select') return renderSectionSelect();
   if (state.screen === 'dashboard') return renderDashboard();
   if (state.screen === 'quiz') return renderQuiz();
   if (state.screen === 'result') return renderResult();
+  if (state.screen === 'flash-dashboard') return renderFlashDashboard();
+  if (state.screen === 'flash-study') return renderFlashStudy();
+  if (state.screen === 'flash-quiz') return renderFlashQuiz();
+  if (state.screen === 'flash-quiz-result') return renderFlashQuizResult();
 }
 
 auth.onAuthStateChanged(async (user) => {
@@ -2239,7 +3005,7 @@ auth.onAuthStateChanged(async (user) => {
     const data = doc.data();
     if (data && data.activeSessionId === mySessionId) {
       startSessionWatcher(user.uid, mySessionId);
-      go('dashboard');
+      go('section-select');
     } else {
       forceLogout('Tài khoản này đã được đăng nhập ở một thiết bị khác.');
     }
