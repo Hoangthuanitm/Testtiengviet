@@ -2957,16 +2957,16 @@ function renderFlashQuizResult() {
 }
 
 /* ---------------- Admin va giong thu am (luu tren Firestore) ---------------- */
-// >>> DIEN EMAIL ADMIN VAO DAY. Chi cac email nay moi thay va dung duoc phong thu am. Vi du: ['admin@vidu.com', 'co.giao@vidu.com']
+// (Khong con dung) Truoc day: chi cac email nay moi dung duoc phong thu am. Vi du: ['admin@vidu.com', 'co.giao@vidu.com']
 // Luu y: phai dat dung cac email nay trong quy tac Firestore (xem huong dan di kem) de viec chan duoc ap dung o may chu.
 const TV_ADMIN_EMAILS = [];
 const VOICE_COLLECTION = 'testtiengviet_voice';
 
 function tvIsAdmin() {
+  // Khong con loc theo email: tai khoan nao da dang nhap deu co the vao phong thu am,
+  // nhung phai nhap dung mat khau (112) o phia ung dung chu cai. TV_ADMIN_EMAILS khong con duoc dung.
   const u = auth.currentUser;
-  if (!u || !u.email) return false;
-  const me = u.email.trim().toLowerCase();
-  return TV_ADMIN_EMAILS.some(e => String(e).trim().toLowerCase() === me);
+  return !!(u && u.email);
 }
 // ID tai lieu on dinh tu noi dung cau (khong chua ky tu cam trong ID Firestore)
 function tvVoiceId(text) {
